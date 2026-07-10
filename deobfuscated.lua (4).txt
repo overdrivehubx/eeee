@@ -1,0 +1,3223 @@
+local v2 = 107;
+local r27 = v2.GetService(107, "UserInputService");
+local v3 = game;
+local r28 = game:GetService("TweenService");
+local v5 = 109;
+local r29 = v5.GetService(109, "RunService");
+local v7 = game;
+local r30 = game:GetService("HttpService");
+local r31 = game:GetService("Players").LocalPlayer;
+local v10 = 112;
+local r32 = v10.GetMouse(112);
+local r33 = {
+    Elements = {},
+    ThemeObjects = {},
+    Connections = {},
+    Flags = {},
+    Themes = {
+        Default = {
+            Main = Color3.fromRGB(20, 20, 22),
+            Second = Color3.fromRGB(30, 30, 32),
+            Stroke = Color3.fromRGB(60, 60, 65),
+            Divider = Color3.fromRGB(40, 40, 45),
+            Text = Color3.fromRGB(240, 240, 245),
+            TextDark = Color3.fromRGB(160, 160, 165)
+        }
+    },
+    SelectedTheme = "Default",
+    Folder = nil,
+    SaveCfg = false,
+    Font = Enum.Font.Gotham
+};
+local function r34(arg1, ...)
+    return nil; 
+end;
+H.CleanupInstance = function(arg1, ...)
+    J = game:GetService("CoreGui");
+    S = {
+        J:GetChildren()
+    };
+    for P, O in J[1], pairs(U(J[1])) do
+        C = O:IsA("ScreenGui");
+        if C then
+            a = O.Name:match("^[A-Z]%d%d%d$");
+        end;
+        if C then
+            O:Destroy();
+        end; 
+    end; 
+end;
+r33:CleanupInstance();
+local r35 = Instance.new("ScreenGui");
+local v14 = r35;
+v14.Name = string.char(math.random(65, 90)) .. tostring(math.random(100, 999));
+local v15 = r35;
+v15.DisplayOrder = 2147483647;
+local v16 = r35;
+v16.Parent = game:GetService("CoreGui");
+K.IsRunning = function(arg1, ...)
+    return r35 and r35.Parent == (52):GetService("CoreGui"); 
+end;
+local function r36(arg1, arg2, ...)
+    if not r33:IsRunning() then
+        return;
+    end;
+    v2 = arg1:Connect(arg2);
+    table.insert(r33.Connections, v2);
+    return v2; 
+end;
+task.spawn(function(...)
+    while r33:IsRunning() do
+        wait(); 
+    end;
+    r, v3 = next(r33.Connections, r);
+    while r do
+        v3.Disconnect(nil); 
+    end; 
+end);
+local function r44(arg1, arg2, ...)
+    r37 = arg1;
+    r38 = arg2;
+    pcall(function(...)
+        local X = {
+            48,
+            X[1],
+            X[2],
+            47,
+            X[3]
+        };
+        r39 = false;
+        r37.InputBegan:Connect(function(arg1, ...)
+            local X = {
+                X[1],
+                X[2],
+                34,
+                36,
+                47,
+                37
+            };
+            r43 = arg1;
+            if arg1.UserInputType == Enum.UserInputType.MouseButton1 or arg1.UserInputType == Enum.UserInputType.Touch then
+                arg1.Changed:Connect(function(...)
+                    local X = {
+                        2,
+                        X[1],
+                        X[2],
+                        34
+                    };
+                    if r43.UserInputState == Enum.UserInputState.End then
+                    end; 
+                end);
+            end; 
+        end);
+        r37.InputChanged:Connect(function(arg1, ...)
+            local X = {
+                X[1],
+                X[2],
+                35
+            };
+            if arg1.UserInputType == Enum.UserInputType.MouseMovement or arg1.UserInputType == Enum.UserInputType.Touch then
+            end; 
+        end);
+        A = r27.InputChanged;
+        r27.InputChanged:Connect(function(arg1, ...)
+            local X = {
+                35,
+                34,
+                X[1],
+                X[2],
+                36,
+                47,
+                37
+            };
+            if arg1 == r40 and r39 then
+                A = r38;
+                A.Position = UDim2.new(r42.X.Scale, r42.X.Offset + (arg1.Position - r41).X, r42.Y.Scale, r42.Y.Offset + (arg1.Position - r41).Y);
+            end; 
+        end); 
+    end); 
+end;
+local function r45(arg1, arg2, arg3, ...)
+    Instance.new(arg1);
+    if arg2 then
+        v7 = arg2;
+        v3, v10 = next(arg2, v3);
+        while v3 do
+            S[v3] = nil; 
+        end;
+        if arg3 then
+            v7, v10 = next(next, arg2);
+            return Instance[r4[v7]](r);
+        end;
+    end; 
+end;
+local function v21(arg1, arg2, ...)
+    r46 = arg2;
+    A = r33.Elements;
+    A[arg1] = function(...)
+        return r46(select(-2, ...)); 
+    end; 
+end;
+local function r47(arg1, ...)
+    return r33.Elements[arg1](...); 
+end;
+local function r49(arg1, arg2, ...)
+    r48 = arg1;
+    table.foreach(arg2, function(arg1, arg2, ...)
+        A = r48;
+        A[arg1] = arg2; 
+    end);
+    return arg1; 
+end;
+local function r51(arg1, arg2, ...)
+    r50 = arg1;
+    table.foreach(arg2, function(arg1, arg2, ...)
+        local X = {
+            X[1],
+            X[2],
+            10
+        };
+        V = arg2;
+        V.Parent = r50; 
+    end);
+    return arg1; 
+end;
+local function r52(arg1, arg2, ...)
+    v2 = math.floor(arg1 / arg2 + math.sign(arg1) * 0.5);
+    v2 = v2 * arg2 and v2 + arg2;
+    return ((v2 * arg2 and v2 + arg2) * arg2 and (v2 * arg2 and v2 + arg2) + arg2) * arg2 and ((v2 * arg2 and v2 + arg2) * arg2 and (v2 * arg2 and v2 + arg2) + arg2) + arg2; 
+end;
+local function r53(arg1, ...)
+    if arg1:IsA("Frame") or arg1:IsA("TextButton") then
+        return "BackgroundColor3";
+    end;
+    if arg1:IsA("ScrollingFrame") then
+        return "ScrollBarImageColor3";
+    end;
+    if arg1:IsA("UIStroke") then
+        return "Color";
+    end;
+    if arg1:IsA("TextLabel") or arg1:IsA("TextBox") then
+        return "TextColor3";
+    end;
+    if arg1:IsA("ImageLabel") or arg1:IsA("ImageButton") then
+        return "ImageColor3";
+    end; 
+end;
+local function r54(arg1, arg2, ...)
+    r = arg1;
+    if not r33.ThemeObjects[arg2] then
+        A = r33.ThemeObjects;
+        A[arg2] = {};
+    end;
+    table.insert(r33.ThemeObjects[arg2], arg1);
+    r[r53(arg1)] = r33.Themes[r33.SelectedTheme][arg2];
+    return r; 
+end;
+local function r55(arg1, ...)
+    return {
+        R = arg1.v22 * 255,
+        G = arg1.G * 255,
+        B = arg1.B * 255
+    }; 
+end;
+local function r56(arg1, ...)
+    return Color3.fromRGB(arg1.v22, arg1.G, arg1.B); 
+end;
+local function r60(arg1, ...)
+    r57 = arg1;
+    S = {
+        pcall(function(...)
+            local X = {
+                X[1],
+                64,
+                X[2],
+                X[3],
+                X[4],
+                X[5]
+            };
+            table.foreach(r30:JSONDecode(r57), function(arg1, arg2, ...)
+                local X = {
+                    X[4],
+                    X[2],
+                    X[3],
+                    X[5]
+                };
+                r58 = arg1;
+                r59 = arg2;
+                if r33.Flags[arg1] then
+                    spawn(function(...)
+                        local X = {
+                            X[4],
+                            X[2],
+                            X[3],
+                            39,
+                            X[5],
+                            40
+                        };
+                        if r33.Flags[r58].Type == "Colorpicker" then
+                            r33.Flags[r58]:Set(r56(r59));
+                        else
+                            r33.Flags[r58]:Set(r59);
+                        end; 
+                    end);
+                else
+                    warn("Clean UI Library Config Loader - Could not find ", arg1, arg2);
+                end; 
+            end); 
+        end)
+    };
+    v2 = pcall(function(...)
+        local X = {
+            X[1],
+            64,
+            X[2],
+            X[3],
+            X[4],
+            X[5]
+        };
+        table.foreach(r30:JSONDecode(r57), function(arg1, arg2, ...)
+            local X = {
+                X[4],
+                X[2],
+                X[3],
+                X[5]
+            };
+            r58 = arg1;
+            r59 = arg2;
+            if r33.Flags[arg1] then
+                spawn(function(...)
+                    local X = {
+                        X[4],
+                        X[2],
+                        X[3],
+                        39,
+                        X[5],
+                        40
+                    };
+                    if r33.Flags[r58].Type == "Colorpicker" then
+                        r33.Flags[r58]:Set(r56(r59));
+                    else
+                        r33.Flags[r58]:Set(r59);
+                    end; 
+                end);
+            else
+                warn("Clean UI Library Config Loader - Could not find ", arg1, arg2);
+            end; 
+        end); 
+    end);
+    if not v2 then
+        warn("Config Load Error:", S[2]);
+    end; 
+end;
+local function r62(arg1, ...)
+    r = 62;
+    r61 = arg1;
+    if not writefile or (not makefolder or not isfolder) then
+        return false;
+    end;
+    if not pcall(function(...)
+        local X = {
+            X[1],
+            X[2],
+            X[3],
+            X[4],
+            62,
+            X[5]
+        };
+        if not isfolder(r33.Folder) then
+            makefolder(r33.Folder);
+        end;
+        v3 = r33;
+        S = "Flags";
+        v2 = r33[3];
+        V = r33[2];
+        for v2, v5 in pairs(o) do
+            if v5.Save then
+                if v5.Type == "Colorpicker" then
+                    r[r33[3]] = r55(v5.Value);
+                else
+                    r[r33[3]] = v5.Value;
+                end;
+            end; 
+        end;
+        S = r30;
+        writefile(r33.Folder .. "/" .. r61 .. ".txt", r30:JSONEncode({})); 
+    end) then
+        warn("Config Save Error:", S[2]);
+        return false;
+    end;
+    return true; 
+end;
+local r63 = {
+    Enum.UserInputType.MouseButton1,
+    Enum.UserInputType.MouseButton2,
+    Enum.UserInputType.MouseButton3,
+    Enum.UserInputType.Touch
+};
+local r64 = {
+    Enum.KeyCode.Unknown,
+    Enum.KeyCode.W,
+    Enum.KeyCode.A,
+    Enum.KeyCode.S,
+    Enum.KeyCode.v13,
+    Enum.KeyCode.Up,
+    Enum.KeyCode.Left,
+    Enum.KeyCode.Down,
+    Enum.KeyCode.Right,
+    Enum.KeyCode.Slash,
+    Enum.KeyCode.Tab,
+    Enum.KeyCode.Backspace,
+    Enum.KeyCode.Escape
+};
+local function r65(arg1, arg2, ...)
+    v3, v7 = next(arg1, v3);
+    while v3 do
+        if 110 == arg2 then
+            return true;
+        end; 
+    end; 
+end;
+v21("Corner", function(arg1, arg2, ...)
+    return r45("UICorner", {
+        CornerRadius = UDim.new(arg1 or 0, arg2 or 10)
+    }); 
+end);
+v21("Stroke", function(arg1, arg2, ...)
+    A = r45;
+    if arg1 then
+        A = "Thickness";
+        return A("UIStroke", {
+            Color = arg1,
+            Thickness = arg2 or 1,
+            Transparency = .3
+        });
+    else
+        v5 = Color3.fromRGB(255, 255, 255);
+    end; 
+end);
+v21("List", function(arg1, arg2, ...)
+    return r45("UIListLayout", {
+        SortOrder = Enum.SortOrder.LayoutOrder,
+        Padding = UDim.new(arg1 or 0, arg2 or 0)
+    }); 
+end);
+v21("Padding", function(arg1, arg2, arg3, arg4, ...)
+    return r45("UIPadding", {
+        PaddingBottom = UDim.new(0, arg1 or 4),
+        PaddingLeft = UDim.new(0, arg2 or 4),
+        PaddingRight = UDim.new(0, arg3 or 4),
+        PaddingTop = UDim.new(0, arg4 or 4)
+    }); 
+end);
+v21("TFrame", function(...)
+    return r45("Frame", {
+        BackgroundTransparency = 1
+    }); 
+end);
+v21("Frame", function(arg1, ...)
+    if arg1 then
+        return r45("Frame", {
+            BackgroundColor3 = arg1,
+            BorderSizePixel = 0,
+            BackgroundTransparency = .15
+        });
+    else
+        v3 = Color3.fromRGB(255, 255, 255);
+    end; 
+end);
+v21("RoundFrame", function(arg1, arg2, arg3, ...)
+    if arg1 then
+        return r45("Frame", {
+            [r4[v10]] = arg1,
+            BorderSizePixel = 0,
+            BackgroundTransparency = .15
+        }, {
+            r45("UICorner", {
+                CornerRadius = UDim.new(arg2, arg3)
+            })
+        });
+    else
+        v7 = Color3.fromRGB(255, 255, 255);
+    end; 
+end);
+v21("Button", function(...)
+    return r45("TextButton", {
+        Text = "",
+        AutoButtonColor = false,
+        BackgroundTransparency = 1,
+        BorderSizePixel = 0
+    }); 
+end);
+v21("ScrollFrame", function(arg1, arg2, ...)
+    return r45("ScrollingFrame", {
+        BackgroundTransparency = 1,
+        MidImage = "rbxassetid://7445543667",
+        BottomImage = "rbxassetid://7445543667",
+        TopImage = "rbxassetid://7445543667",
+        ScrollBarImageColor3 = arg1,
+        BorderSizePixel = 0,
+        ScrollBarThickness = arg2,
+        CanvasSize = UDim2.new(0, 0, 0, 0)
+    }); 
+end);
+v21("Image", function(arg1, ...)
+    if r34(arg1) ~= nil then
+        V.Image = r34(arg1);
+    end;
+    return r45("ImageLabel", {
+        Image = arg1,
+        BackgroundTransparency = 1,
+        ImageTransparency = .1
+    }); 
+end);
+v21("ImageButton", function(arg1, ...)
+    return r45("ImageButton", {
+        Image = arg1,
+        BackgroundTransparency = 1,
+        ImageTransparency = .1
+    }); 
+end);
+v21("Label", function(arg1, arg2, arg3, ...)
+    if arg1 then
+        return A("TextLabel", {
+            Text = arg1,
+            TextColor3 = Color3.fromRGB(240, 240, 240),
+            TextTransparency = arg3 or .05,
+            TextSize = arg2 or 15,
+            Font = Enum.Font.GothamSemibold,
+            RichText = true,
+            BackgroundTransparency = 1,
+            TextXAlignment = Enum.TextXAlignment.Left
+        });
+    end; 
+end);
+local r66 = r49(r51(r47("TFrame"), {
+    r49(r47("List"), {
+        HorizontalAlignment = Enum.HorizontalAlignment.Center,
+        SortOrder = Enum.SortOrder.LayoutOrder,
+        VerticalAlignment = Enum.VerticalAlignment.Bottom,
+        Padding = UDim.new(0, 5)
+    })
+}), {
+    Position = UDim2.new(1, -25, 1, -25),
+    Size = UDim2.new(0, 300, 1, -25),
+    AnchorPoint = Vector2.new(1, 1),
+    Parent = r35
+});
+wj.MakeNotification = function(arg1, arg2, ...)
+    r67 = arg2;
+    spawn(function(...)
+        local X = {
+            61,
+            X[1],
+            X[2],
+            X[3],
+            X[4],
+            X[5],
+            X[6],
+            X[7]
+        };
+        A = r67;
+        A.Name = r67.Name or "Notification";
+        A = r67;
+        A.Content = r67.Content or "Test";
+        A = r67;
+        A.Image = r67.Image or "rbxassetid://4384403532";
+        A = r67;
+        A.Time = r67.Time or 15;
+        V = r51(r49(r47("RoundFrame", Color3.fromRGB(25, 25, 25), 0, 10), {
+            Parent = r49(r47("TFrame"), {
+                Size = UDim2.new(1, 0, 0, 0),
+                AutomaticSize = Enum.AutomaticSize.Y,
+                Parent = r66
+            }),
+            Size = UDim2.new(1, 0, 0, 0),
+            Position = UDim2.new(1, -55, 0, 0),
+            BackgroundTransparency = .2,
+            AutomaticSize = Enum.AutomaticSize.Y
+        }), {
+            r47("Stroke", Color3.fromRGB(93, 93, 93), 1.2),
+            r47("Padding", 12, 12, 12, 12),
+            r49(r47("Image", r67.Image), {
+                Size = UDim2.new(0, 20, 0, 20),
+                ImageColor3 = Color3.fromRGB(240, 240, 240),
+                Name = "Icon"
+            }),
+            r49(r47("Label", r67.Name, 15), {
+                Size = UDim2.new(1, -30, 0, 20),
+                Position = UDim2.new(0, 30, 0, 0),
+                Font = Enum.Font.FredokaOne,
+                Name = "Title"
+            }),
+            r49(r47("Label", r67.Content, 14), {
+                Size = UDim2.new(1, 0, 0, 0),
+                Position = UDim2.new(0, 0, 0, 25),
+                Font = Enum.Font.FredokaOne,
+                Name = "Content",
+                AutomaticSize = Enum.AutomaticSize.Y,
+                TextColor3 = Color3.fromRGB(200, 200, 200),
+                TextWrapped = true
+            })
+        });
+        P = r28:Create(V, TweenInfo.new(0.5, Enum.EasingStyle.Quint), {
+            Position = UDim2.new(0, 0, 0, 0)
+        });
+        P:Play();
+        wait(r67.Time - .88);
+        P = r28:Create(V.Icon, TweenInfo.new(.4, Enum.EasingStyle.Quint), {
+            ImageTransparency = 1
+        });
+        P:Play();
+        P = r28:Create(V, TweenInfo.new(.8, Enum.EasingStyle.Quint), {
+            BackgroundTransparency = .8
+        });
+        P:Play();
+        wait(.3);
+        P = r28:Create(V.UIStroke, TweenInfo.new(.6, Enum.EasingStyle.Quint), {
+            Transparency = .9
+        });
+        P:Play();
+        P = r28:Create(V.Title, TweenInfo.new(.6, Enum.EasingStyle.Quint), {
+            TextTransparency = .4
+        });
+        P:Play();
+        P = r28:Create(V.Content, TweenInfo.new(.6, Enum.EasingStyle.Quint), {
+            TextTransparency = 0.5
+        });
+        P:Play();
+        wait(.05);
+        V:TweenPosition(UDim2.new(1, 20, 0, 0), "In", "Quint", .8, true);
+        wait(1.35);
+        V:Destroy(); 
+    end); 
+end;
+wj.Init = function(arg1, ...)
+    if r33.SaveCfg then
+        if not isfile or (not readfile or not isfolder) then
+            warn("File functions not available");
+            return;
+        end;
+        pcall(function(...)
+            local X = {
+                X[1],
+                X[2],
+                X[3],
+                X[4]
+            };
+            if isfile(r33.Folder .. "/" .. game.GameId .. ".txt") then
+                r60(readfile(r33.Folder .. "/" .. game.GameId .. ".txt"));
+                r33:MakeNotification({
+                    Name = "Configuration",
+                    Content = "Auto-loaded configuration for the game " .. game.GameId .. ".",
+                    Time = 5
+                });
+            end; 
+        end);
+    end; 
+end;
+wj.MakeWindow = function(arg1, arg2, ...)
+    P = 6;
+    V = 7;
+    r = arg1;
+    S = 8;
+    O = 9;
+    r69 = true;
+    r70 = false;
+    J = false;
+    r71 = false;
+    r68 = arg2 or nil;
+    A = r68;
+    A.Name = r68.Name or "Loading Flux...";
+    A = r68;
+    A.ConfigFolder = r68.ConfigFolder or r68.Name;
+    A = r68;
+    A.SaveConfig = r68.SaveConfig or false;
+    a = r68;
+    a.HidePremium = r68.HidePremium or false;
+    if r68.IntroEnabled == nil then
+        a = r68;
+        a.IntroEnabled = true;
+    end;
+    a = r68;
+    a.IntroToggleIcon = r68.IntroToggleIcon or "rbxassetid://8834748103";
+    a = r68;
+    a.IntroText = r68.IntroText or "Loading...";
+    a = r68;
+    a.CloseCallback = r68.CloseCallback or function(...)
+ 
+    end;
+    a = r68;
+    a.ShowIcon = r68.ShowIcon or false;
+    a = r68;
+    a.Icon = r68.Icon or "rbxassetid://8834748103";
+    a = r68;
+    a.IntroIcon = r68.IntroIcon or "rbxassetid://8834748103";
+    a = r33;
+    a.Folder = r68.ConfigFolder;
+    a = r33;
+    a.SaveCfg = r68.SaveConfig;
+    if r68.SaveConfig then
+        if not isfolder(r68.ConfigFolder) then
+            makefolder(r68.ConfigFolder);
+        end;
+    end;
+    a = 58;
+    r72 = r54(r51(r49(r47("ScrollFrame", Color3.fromRGB(255, 255, 255), 4), {
+        Size = UDim2.new(1, 0, 1, -50)
+    }), {
+        r47("List"),
+        r47("Padding", 8, 0, 0, 8)
+    }), "Divider");
+    r36(r72.UIListLayout:GetPropertyChangedSignal("AbsoluteContentSize"), function(...)
+        local X = {
+            58,
+            X[1],
+            X[2]
+        };
+        A = r72;
+        A.CanvasSize = UDim2.new(0, 0, 0, r72.UIListLayout.AbsoluteContentSize.Y + 16); 
+    end);
+    N = r51(r49(r47("Button"), {
+        Size = UDim2.new(0.5, 0, 1, 0),
+        Position = UDim2.new(0.5, 0, 0, 0),
+        BackgroundTransparency = 1
+    }), {
+        r54(r49(r47("Image", "rbxassetid://7072725342"), {
+            Position = UDim2.new(0, 9, 0, 6),
+            Size = UDim2.new(0, 18, 0, 18)
+        }), "Text")
+    });
+    C = 59;
+    r73 = r51(r49(r47("Button"), {
+        Size = UDim2.new(0.5, 0, 1, 0),
+        BackgroundTransparency = 1
+    }), {
+        r54(r49(r47("Image", "rbxassetid://7072719338"), {
+            Position = UDim2.new(0, 9, 0, 6),
+            Size = UDim2.new(0, 18, 0, 18),
+            Name = "Ico"
+        }), "Text")
+    });
+    z = r49(r47("TFrame"), {
+        Size = UDim2.new(1, 0, 0, 50)
+    });
+    M = r54;
+    D = r51;
+    r49(r47("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 10), {
+        Size = UDim2.new(0, 150, 1, -50),
+        Position = UDim2.new(0, 0, 0, 50),
+        BackgroundTransparency = .025
+    });
+    r54(r49(r47("Frame"), {
+        Size = UDim2.new(1, 0, 0, 10),
+        Position = UDim2.new(0, 0, 0, 0),
+        BackgroundTransparency = 0.25
+    }), "Second");
+    r54(r49(r47("Frame"), {
+        Size = UDim2.new(0, 10, 1, 0),
+        Position = UDim2.new(1, -10, 0, 0),
+        BackgroundTransparency = 0.25
+    }), "Second");
+    r54(r49(r47("Frame"), {
+        Size = UDim2.new(0, 1, 1, 0),
+        Position = UDim2.new(1, -1, 0, 0),
+        BackgroundTransparency = .4
+    }), "Stroke");
+    i = r72;
+    r49(r47("TFrame"), {
+        Size = UDim2.new(1, 0, 0, 50),
+        Position = UDim2.new(0, 0, 1, -50)
+    });
+    r54(r49(r47("Frame"), {
+        Size = UDim2.new(1, 0, 0, 1),
+        BackgroundTransparency = .4
+    }), "Stroke");
+    r54(r51(r49(r47("Frame"), {
+        AnchorPoint = Vector2.new(0, 0.5),
+        Size = UDim2.new(0, 32, 0, 32),
+        Position = UDim2.new(0, 10, 0.5, 0),
+        BackgroundTransparency = .3
+    }), {
+        r49(r47("Image", "https://www.roblox.com/headshot-thumbnail/image?userId=" .. r31.UserId .. "&width=420&height=420&format=png"), {
+            Size = UDim2.new(1, 0, 1, 0)
+        }),
+        r54(r49(r47("Image", "rbxassetid://4031889928"), {
+            Size = UDim2.new(1, 0, 1, 0)
+        }), "Second"),
+        r47("Corner", 1)
+    }), "Divider");
+    r51(r49(r47("TFrame"), {
+        AnchorPoint = Vector2.new(0, 0.5),
+        Size = UDim2.new(0, 32, 0, 32),
+        Position = UDim2.new(0, 10, 0.5, 0)
+    }), {
+        r54(r47("Stroke"), "Stroke"),
+        r47("Corner", 1)
+    });
+    r47("Label", "GetFlux", r68.HidePremium and 14 or 13);
+    UDim2.new(1, -60, 0, 13);
+    Xj = r68.HidePremium and UDim2.new(0, 50, 0, 19);
+    if r68.HidePremium then
+        r74 = r54(r51(K(r47("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 10), {
+            Size = UDim2.new(0, 150, 1, -50),
+            Position = UDim2.new(0, 0, 0, 50),
+            BackgroundTransparency = .025
+        }), {
+            r54(r49(r47("Frame"), {
+                Size = UDim2.new(1, 0, 0, 10),
+                Position = UDim2.new(0, 0, 0, 0),
+                BackgroundTransparency = 0.25
+            }), "Second"),
+            r54(r49(r47("Frame"), {
+                Size = UDim2.new(0, 10, 1, 0),
+                Position = UDim2.new(1, -10, 0, 0),
+                BackgroundTransparency = 0.25
+            }), "Second"),
+            r54(b, "Stroke"),
+            r72,
+            r51(B(r47("TFrame"), {
+                Size = UDim2.new(1, 0, 0, 50),
+                Position = UDim2.new(0, 0, 1, -50)
+            }), {
+                r54(r49(r47("Frame"), {
+                    Size = UDim2.new(1, 0, 0, 1),
+                    BackgroundTransparency = .4
+                }), "Stroke"),
+                r54(r51(r49(r47("Frame"), {
+                    AnchorPoint = Vector2.new(0, 0.5),
+                    Size = UDim2.new(0, 32, 0, 32),
+                    Position = UDim2.new(0, 10, 0.5, 0),
+                    BackgroundTransparency = .3
+                }), {
+                    r49(r47("Image", "https://www.roblox.com/headshot-thumbnail/image?userId=" .. r31.UserId .. "&width=420&height=420&format=png"), {
+                        Size = UDim2.new(1, 0, 1, 0)
+                    }),
+                    r54(r49(r47("Image", "rbxassetid://4031889928"), {
+                        Size = UDim2.new(1, 0, 1, 0)
+                    }), "Second"),
+                    r47("Corner", 1)
+                }), "Divider"),
+                r51(r49(r47("TFrame"), {
+                    AnchorPoint = Vector2.new(0, 0.5),
+                    Size = UDim2.new(0, 32, 0, 32),
+                    Position = UDim2.new(0, 10, 0.5, 0)
+                }), Q),
+                r54(r49(d("Label", "GetFlux", r68.HidePremium and 14 or 13), {
+                    Size = UDim2.new(1, -60, 0, 13),
+                    Position = r68.HidePremium and UDim2.new(0, 50, 0, 19),
+                    Font = Enum.Font.FredokaOne,
+                    ClipsDescendants = true
+                }), "Text"),
+                r54(r49(r47("Label", ".gg/zRTh9knFQb", 12), {
+                    Size = UDim2.new(1, -60, 0, 12),
+                    Position = UDim2.new(0, 50, 1, -25),
+                    Visible = not r68.HidePremium
+                }), "TextDark")
+            })
+        }), "Second");
+        r75 = r54(r49(r47("Label", r68.Name, 14), {
+            Size = UDim2.new(1, -30, 2, 0),
+            Position = UDim2.new(0, 25, 0, -24),
+            Font = Enum.Font.GothamBlack,
+            TextSize = 20
+        }), "Text");
+        r76 = r54(r49(r47("Frame"), {
+            Size = UDim2.new(1, 0, 0, 1),
+            Position = UDim2.new(0, 0, 1, -1),
+            BackgroundTransparency = .4
+        }), "Stroke");
+        r77 = r54(r51(r49(r47("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 10), {
+            Parent = r35,
+            Position = UDim2.new(0.5, -307, 0.5, -172),
+            Size = UDim2.new(0, 615, 0, 344),
+            ClipsDescendants = true,
+            BackgroundTransparency = .09
+        }), {
+            r51(r49(r47("TFrame"), {
+                Size = UDim2.new(1, 0, 0, 50),
+                Name = "TopBar"
+            }), {
+                r75,
+                r76,
+                r54(r51(r49(r47("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 7), {
+                    Size = UDim2.new(0, 70, 0, 30),
+                    Position = UDim2.new(1, -90, 0, 10),
+                    BackgroundTransparency = 0.25
+                }), {
+                    r54(r47("Stroke"), "Stroke"),
+                    r54(r49(r47("Frame"), {
+                        Size = UDim2.new(0, 1, 1, 0),
+                        Position = UDim2.new(0.5, 0, 0, 0),
+                        BackgroundTransparency = .4
+                    }), "Stroke"),
+                    N,
+                    r73
+                }), "Second")
+            }),
+            z,
+            r74
+        }), "Main");
+        if r68.ShowIcon then
+            K = r75;
+            K.Position = UDim2.new(0, 50, 0, -24);
+            y = r49(r47("Image", r68.Icon), {
+                Size = UDim2.new(0, 20, 0, 20),
+                Position = UDim2.new(0, 25, 0, 15)
+            });
+            y.Parent = r77.TopBar;
+        end;
+        r44(z, r77);
+        r78 = r51(r49(r47("Button"), {
+            Parent = r35,
+            Size = UDim2.new(0, 40, 0, 40),
+            Position = UDim2.new(0.5, -20, 0, 20),
+            BackgroundTransparency = .2,
+            BackgroundColor3 = r33.Themes[r33.SelectedTheme].Main,
+            Visible = false
+        }), {
+            r54(r49(r47("Image", r68.IntroToggleIcon or "http://www.roblox.com/asset/?id=8834748103"), {
+                AnchorPoint = Vector2.new(0.5, 0.5),
+                Position = UDim2.new(0.5, 0, 0.5, 0),
+                Size = UDim2.new(.7, 0, .7, 0)
+            }), "Text"),
+            r47("Corner", 1)
+        });
+        r36(N.MouseButton1Up, function(...)
+            local X = {
+                76,
+                X[1],
+                X[2],
+                X[12],
+                60,
+                9,
+                X[3],
+                7
+            };
+            A = r77;
+            A.Visible = false;
+            if r27.TouchEnabled then
+                A = r78;
+                A.Visible = true;
+            end;
+            r33:MakeNotification({
+                Name = "Interface Hidden",
+                Content = r27.TouchEnabled and "Tap the button or Left Control to reopen the interface" or "Press Left Control to reopen the interface",
+                Time = 5
+            });
+            r68.CloseCallback(); 
+        end);
+        r36(N.MouseButton1Down, function(...)
+            local X = {
+                X[1],
+                X[2]
+            };
+            V = Instance.new("Sound", game:GetService("SoundService"));
+            V.SoundId = "rbxassetid://6895079853";
+            V.Volume = 1;
+            V:Play();
+            o = game:GetService("Debris");
+            o:AddItem(V, 3); 
+        end);
+        r36(r27.InputBegan, function(arg1, ...)
+            local X = {
+                X[1],
+                X[2],
+                9,
+                76,
+                60
+            };
+            if arg1.KeyCode == Enum.KeyCode.LeftControl and r71 == true then
+                A = r77;
+                A.Visible = true;
+                A = r78;
+                A.Visible = false;
+            end; 
+        end);
+        r36(r78.Activated, function(...)
+            local X = {
+                76,
+                X[1],
+                X[2],
+                60
+            };
+            A = r77;
+            A.Visible = true;
+            A = r78;
+            A.Visible = false; 
+        end);
+        r36(r78.MouseButton1Down, function(...)
+            local X = {
+                X[1],
+                X[2]
+            };
+            V = Instance.new("Sound", game:GetService("SoundService"));
+            V.SoundId = "rbxassetid://6895079853";
+            V.Volume = 1;
+            V:Play();
+            o = game:GetService("Debris");
+            o:AddItem(V, 3); 
+        end);
+        r36(r73.MouseButton1Up, function(...)
+            local X = {
+                8,
+                X[13],
+                76,
+                X[1],
+                X[2],
+                59,
+                73,
+                75,
+                74
+            };
+            if r70 then
+                o = r28:Create(r77, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                    Size = UDim2.new(0, 615, 0, 344)
+                });
+                o:Play();
+                A = r73.Ico;
+                A.Image = "rbxassetid://7072719338";
+                wait(.02);
+                A = r77;
+                A.ClipsDescendants = false;
+                A = r74;
+                A.Visible = true;
+                A = r76;
+                A.Visible = true;
+            else
+                A = r77;
+                A.ClipsDescendants = true;
+                A = r76;
+                A.Visible = false;
+                A = r73.Ico;
+                A.Image = "rbxassetid://7072720870";
+                o = r28:Create(r77, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                    Size = UDim2.new(0, r75.TextBounds.X + 140, 0, 50)
+                });
+                o:Play();
+                wait(.1);
+                A = r74;
+                A.Visible = false;
+            end; 
+        end);
+        r36(r73.MouseButton1Down, function(...)
+            local X = {
+                X[1],
+                X[2]
+            };
+            V = Instance.new("Sound", game:GetService("SoundService"));
+            V.SoundId = "rbxassetid://6895079853";
+            V.Volume = 1;
+            V:Play();
+            o = game:GetService("Debris");
+            o:AddItem(V, 3); 
+        end);
+        if r68.IntroEnabled then
+            (function(...)
+                local X = {
+                    76,
+                    X[1],
+                    X[2],
+                    X[6],
+                    X[7],
+                    X[10],
+                    7,
+                    X[13]
+                };
+                A = r77;
+                A.Visible = false;
+                P = r49(r47("TFrame"), {
+                    Parent = r35,
+                    Size = UDim2.new(1, 0, 1, 0),
+                    BackgroundTransparency = 1
+                });
+                r79 = r49(r47("Image", r68.IntroIcon), {
+                    Parent = P,
+                    AnchorPoint = Vector2.new(0.5, 0.5),
+                    Position = UDim2.new(0.5, 0, 0.5, 0),
+                    Size = UDim2.new(0, 28, 0, 28),
+                    ImageColor3 = Color3.fromRGB(255, 255, 255),
+                    ImageTransparency = 1
+                });
+                r80 = r49(r47("Label", "Loading Flux...", 14), {
+                    Parent = P,
+                    Size = UDim2.new(0, 0, 0, 20),
+                    AnchorPoint = Vector2.new(0, 0.5),
+                    Position = UDim2.new(0.5, 0, 0.5, 0),
+                    TextXAlignment = Enum.TextXAlignment.Left,
+                    Font = Enum.Font.GothamBold,
+                    TextTransparency = 1,
+                    AutomaticSize = Enum.AutomaticSize.X
+                });
+                o = r28:Create(r79, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                    ImageTransparency = 0
+                });
+                o:Play();
+                wait(.8);
+                A = r28;
+                o = r28:Create(r80, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                    TextTransparency = 0
+                });
+                o:Play();
+                wait(.1);
+                wait(.1);
+                (function(...)
+                    local X = {
+                        51,
+                        X[1],
+                        X[2],
+                        50
+                    };
+                    A = r79;
+                    A.Position = UDim2.new(0.5, -(38 + r80.TextBounds.X) / 2, 0.5, 0);
+                    A = r80;
+                    A.Position = UDim2.new(0.5, -(38 + r80.TextBounds.X) / 2 + 28 + 10, 0.5, 0); 
+                end)();
+                for a = 1, #r do
+                    o = 1;
+                    if a > 1 then
+                        o = r28:Create(r80, TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {
+                            Position = UDim2.new(r80.Position.X.Scale, r80.Position.X.Offset, .45, 0),
+                            TextTransparency = 1
+                        });
+                        o:Play();
+                        wait(.2);
+                        A = r80;
+                        A.Text = ({
+                            "Loading Flux..."
+                        })[a];
+                        wait(.05);
+                        (function(...)
+                            local X = {
+                                51,
+                                X[1],
+                                X[2],
+                                50
+                            };
+                            A = r79;
+                            A.Position = UDim2.new(0.5, -(38 + r80.TextBounds.X) / 2, 0.5, 0);
+                            A = r80;
+                            A.Position = UDim2.new(0.5, -(38 + r80.TextBounds.X) / 2 + 28 + 10, 0.5, 0); 
+                        end)();
+                        A = r80;
+                        A.Position = UDim2.new(r80.Position.X.Scale, r80.Position.X.Offset, .55, 0);
+                        o = r28:Create(r80, TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                            Position = UDim2.new(r80.Position.X.Scale, r80.Position.X.Offset, 0.5, 0),
+                            TextTransparency = 0
+                        });
+                        o:Play();
+                    end;
+                    if a < #r then
+                        wait(1.5);
+                    else
+                        wait(1);
+                    end; 
+                end;
+                o = r28:Create(r80, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                    TextTransparency = 1
+                });
+                o:Play();
+                o = r28:Create(r79, TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                    ImageTransparency = 1
+                });
+                o:Play();
+                wait(.3);
+                C = Instance.new("Sound");
+                o = game:GetService("SoundService");
+                C:Play();
+                A = r77;
+                A.Visible = true;
+                P:Destroy(); 
+            end)();
+        end;
+        i = {};
+        i.MakeTabHeader = function(arg1, arg2, ...)
+            local X = {
+                X[1],
+                X[2],
+                X[6],
+                X[7],
+                58,
+                X[14]
+            };
+            if arg2 then
+                P = r49(r47("TFrame"), {
+                    Size = UDim2.new(1, 0, 0, 30),
+                    Parent = r72
+                });
+                S = r45("Frame", {
+                    BackgroundColor3 = Color3.fromRGB(135, 206, 250),
+                    BorderSizePixel = 0,
+                    Size = UDim2.new(0, 3, 0, 13),
+                    Position = UDim2.new(0, 8, 0.5, 0),
+                    AnchorPoint = Vector2.new(0, 0.5)
+                }, {
+                    r45("UICorner", {
+                        CornerRadius = UDim.new(1, 0)
+                    })
+                });
+                r49(r47("Label", arg2, 11), {
+                    Size = UDim2.new(1, -22, 1, 0),
+                    Position = UDim2.new(0, 18, 0, 0),
+                    Font = Enum.Font.GothamBlack,
+                    TextColor3 = Color3.fromRGB(135, 206, 250),
+                    TextTransparency = .05,
+                    Parent = P
+                });
+                return P;
+            end; 
+        end;
+        i.MakeTab = function(arg1, arg2, ...)
+            local X = {
+                X[1],
+                X[2],
+                X[5],
+                X[6],
+                X[7],
+                a,
+                X[4],
+                X[15],
+                76,
+                X[8],
+                6,
+                X[13],
+                X[3],
+                X[16],
+                X[12],
+                X[17],
+                X[18],
+                X[19],
+                X[20],
+                X[21],
+                X[14],
+                X[22]
+            };
+            r = arg1;
+            V = arg2;
+            if arg2 then
+                V = arg2;
+                V.Name = arg2.Name or "Tab";
+                V.Icon = V.Icon or "";
+                A = "PremiumOnly";
+                V.PremiumOnly = V.PremiumOnly or false;
+                P = 94;
+                r81 = r51(r49(r47("Button"), {
+                    Size = UDim2.new(1, 0, 0, 30),
+                    Parent = r72
+                }), {
+                    r54(r49(r47("Image", V.Icon), {
+                        AnchorPoint = Vector2.new(0, 0.5),
+                        Size = UDim2.new(0, 18, 0, 18),
+                        Position = UDim2.new(0, 10, 0.5, 0),
+                        ImageTransparency = .4,
+                        Name = "Ico"
+                    }), "Text"),
+                    r54(r49(r47("Label", V.Name, 14), {
+                        Size = UDim2.new(1, -35, 1, 0),
+                        Position = UDim2.new(0, 35, 0, 0),
+                        Font = Enum.Font.GothamBlack,
+                        TextTransparency = .4,
+                        Name = "Title"
+                    }), "Text")
+                });
+                if r34(V.Icon) ~= nil then
+                end;
+                S = 71;
+                r82 = r54(r51(r49(r47("ScrollFrame", Color3.fromRGB(255, 255, 255), 5), {
+                    Size = UDim2.new(1, -150, 1, -50),
+                    Position = UDim2.new(0, 150, 0, 50),
+                    Parent = r77,
+                    Visible = false,
+                    Name = "ItemContainer"
+                }), {
+                    r47("List", 0, 6),
+                    r47("Padding", 15, 10, 10, 15)
+                }), "Divider");
+                a = r82.UIListLayout;
+                r36(r82.UIListLayout:GetPropertyChangedSignal("AbsoluteContentSize"), function(...)
+                    local X = {
+                        71,
+                        X[1],
+                        X[2]
+                    };
+                    A = r82;
+                    A.CanvasSize = UDim2.new(0, 0, 0, r82.UIListLayout.AbsoluteContentSize.Y + 30); 
+                end);
+                if r69 then
+                    O = r81.Ico;
+                    O.ImageTransparency = 0;
+                    O = r81.Title;
+                    O.TextTransparency = 0;
+                    O = r81.Title;
+                    O.Font = Enum.Font.GothamBlack;
+                    O = r82;
+                    O.Visible = true;
+                end;
+                r36(r81.MouseButton1Click, function(...)
+                    local X = {
+                        a,
+                        X[1],
+                        X[2],
+                        X[13],
+                        76,
+                        94,
+                        71
+                    };
+                    o = r72;
+                    for V, J in next, next(r72) do
+                        O = "TextButton";
+                        if J:IsA("TextButton") then
+                            o = "Title";
+                            o.Font = Enum.Font.GothamBlack;
+                            O = r28:Create("Ico", TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                                ImageTransparency = .4,
+                                ImageColor3 = Color3.fromRGB(240, 240, 240)
+                            });
+                            O:Play();
+                            O = r28:Create("Title", TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                                TextTransparency = .4,
+                                TextColor3 = Color3.fromRGB(240, 240, 240)
+                            });
+                            O:Play();
+                        end; 
+                    end;
+                    for P, J in r77.GetChildren(next) do
+ 
+                    end;
+                    V = r28:Create(r81.Ico, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                        ImageTransparency = 0,
+                        ImageColor3 = Color3.fromRGB(135, 206, 250)
+                    });
+                    V:Play();
+                    V = r28:Create(r81.Title, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                        TextTransparency = 0,
+                        TextColor3 = Color3.fromRGB(135, 206, 250)
+                    });
+                    V:Play();
+                    r = r81.Title;
+                    r.Font = Enum.Font.GothamBlack;
+                    r = r82;
+                    r.Visible = true; 
+                end);
+                D = 31392473512218;
+                r36(r81.MouseButton1Down, function(...)
+                    local X = {
+                        X[1],
+                        X[2]
+                    };
+                    V = Instance.new("Sound", game:GetService("SoundService"));
+                    V.SoundId = "rbxassetid://6895079853";
+                    V.Volume = 1;
+                    V:Play();
+                    o = game:GetService("Debris");
+                    o:AddItem(V, 3); 
+                end);
+                O = 1;
+                local function r128(arg1, ...)
+                    local X = {
+                        X[4],
+                        X[5],
+                        X[6],
+                        X[7],
+                        X[1],
+                        X[2],
+                        X[8],
+                        X[13],
+                        X[3],
+                        X[16],
+                        X[12],
+                        X[17],
+                        X[18],
+                        X[19],
+                        X[20],
+                        X[21],
+                        X[14],
+                        X[22]
+                    };
+                    r = 63;
+                    r83 = arg1;
+                    V = {};
+                    V.AddLabel = function(arg1, arg2, ...)
+                        local X = {
+                            X[4],
+                            X[5],
+                            X[6],
+                            X[7],
+                            X[1],
+                            X[2],
+                            63
+                        };
+                        S = {};
+                        r84 = r54(r51(r49(r47("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 8), {
+                            Size = UDim2.new(1, 0, 0, 30),
+                            BackgroundTransparency = .8,
+                            Parent = r83
+                        }), {
+                            r54(r49(r47("Label", arg2, 15), {
+                                Size = UDim2.new(1, -12, 1, 0),
+                                Position = UDim2.new(0, 12, 0, 0),
+                                Font = Enum.Font.FredokaOne,
+                                Name = "Content"
+                            }), "Text"),
+                            r54(r47("Stroke"), "Stroke")
+                        }), "Second");
+                        S.Set = function(arg1, arg2, ...)
+                            local X = {
+                                72,
+                                X[1],
+                                X[2]
+                            };
+                            A = r84.Content;
+                            A.Text = arg2; 
+                        end;
+                        return S; 
+                    end;
+                    V.AddParagraph = function(arg1, arg2, arg3, ...)
+                        local X = {
+                            X[1],
+                            X[2],
+                            X[4],
+                            X[5],
+                            X[6],
+                            X[7],
+                            63,
+                            X[8]
+                        };
+                        if arg2 then
+                            if arg3 then
+                                r85 = r54(r51(r49(r47("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 8), {
+                                    Size = UDim2.new(1, 0, 0, 30),
+                                    BackgroundTransparency = .8,
+                                    Parent = r83
+                                }), {
+                                    r54(r49(r47("Label", arg2, 15), {
+                                        Size = UDim2.new(1, -12, 0, 14),
+                                        Position = UDim2.new(0, 12, 0, 10),
+                                        Font = Enum.Font.FredokaOne,
+                                        Name = "Title"
+                                    }), "Text"),
+                                    r54(r49(r47("Label", "", 13), {
+                                        Size = UDim2.new(1, -24, 0, 0),
+                                        Position = UDim2.new(0, 12, 0, 26),
+                                        Font = Enum.Font.FredokaOne,
+                                        Name = "Content",
+                                        TextWrapped = true
+                                    }), "TextDark"),
+                                    r54(r47("Stroke"), "Stroke")
+                                }), "Second");
+                                r36(r85.Content:GetPropertyChangedSignal("Text"), function(...)
+                                    local X = {
+                                        85,
+                                        X[1],
+                                        X[2]
+                                    };
+                                    A = r85.Content;
+                                    A.Size = UDim2.new(1, -24, 0, r85.Content.TextBounds.Y);
+                                    A = r85;
+                                    A.Size = UDim2.new(1, 0, 0, r85.Content.TextBounds.Y + 35); 
+                                end);
+                                A = r85.Content;
+                                A.Text = r85.Content;
+                                J = {};
+                                J.Set = function(arg1, arg2, ...)
+                                    local X = {
+                                        85,
+                                        X[1],
+                                        X[2]
+                                    };
+                                    A = r85.Content;
+                                    A.Text = arg2; 
+                                end;
+                                return J;
+                            end;
+                        end; 
+                    end;
+                    V.AddButton = function(arg1, arg2, ...)
+                        local X = {
+                            X[1],
+                            X[2],
+                            X[6],
+                            X[7],
+                            X[4],
+                            X[5],
+                            63,
+                            X[8],
+                            X[13]
+                        };
+                        V = 103;
+                        r86 = arg2 or nil;
+                        A = r86;
+                        A.Name = r86.Name or "Button";
+                        P = "Callback";
+                        O = r86.Callback;
+                        S = r86.Callback;
+                        if r86.Callback then
+                            A.Callback = r86.Callback;
+                            A = r86;
+                            A.Icon = r86.Icon or "rbxassetid://3944703587";
+                            P = {};
+                            S = r49(r47("Button"), {
+                                Size = UDim2.new(1, 0, 1, 0)
+                            });
+                            r87 = r54(r51(r49(r47("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 8), {
+                                Size = UDim2.new(1, 0, 0, 33),
+                                Parent = r83,
+                                BackgroundTransparency = 0.25
+                            }), {
+                                r54(r49(r47("Label", r86.Name, 15), {
+                                    Size = UDim2.new(1, -12, 1, 0),
+                                    Position = UDim2.new(0, 12, 0, 0),
+                                    Font = Enum.Font.FredokaOne,
+                                    Name = "Content"
+                                }), "Text"),
+                                r54(r49(r47("Image", r86.Icon), {
+                                    Size = UDim2.new(0, 20, 0, 20),
+                                    Position = UDim2.new(1, -30, 0, 7)
+                                }), "TextDark"),
+                                r54(r47("Stroke"), "Stroke"),
+                                S
+                            }), "Second");
+                            r36("MouseEnter", function(...)
+                                local X = {
+                                    X[13],
+                                    82,
+                                    X[1],
+                                    X[2]
+                                };
+                                o = r28:Create(r87, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                                    BackgroundTransparency = .15
+                                });
+                                o:Play(); 
+                            end);
+                            r36("MouseLeave", function(...)
+                                local X = {
+                                    X[13],
+                                    82,
+                                    X[1],
+                                    X[2]
+                                };
+                                o = r28:Create(r87, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                                    BackgroundTransparency = 0.25
+                                });
+                                o:Play(); 
+                            end);
+                            r36("MouseButton1Up", function(...)
+                                o = r28:Create(r87, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                                    BackgroundTransparency = .15
+                                });
+                                o:Play();
+                                spawn(function(...)
+                                    local X = {
+                                        103,
+                                        X[1],
+                                        X[2]
+                                    };
+                                    r86.Callback(); 
+                                end); 
+                            end);
+                            r36("MouseButton1Down", function(...)
+                                local X = {
+                                    X[13],
+                                    82,
+                                    X[1],
+                                    X[2]
+                                };
+                                o = r28:Create(r87, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                                    BackgroundTransparency = .05
+                                });
+                                o:Play();
+                                V = Instance.new("Sound", game:GetService("SoundService"));
+                                V.SoundId = "rbxassetid://6895079853";
+                                V.Volume = 1;
+                                V:Play();
+                                o = game:GetService("Debris");
+                                o:AddItem(V, 3); 
+                            end);
+                            P.Set = function(arg1, arg2, ...)
+                                local X = {
+                                    82,
+                                    X[1],
+                                    X[2]
+                                };
+                                A = r87.Content;
+                                A.Text = arg2; 
+                            end;
+                            return P;
+                        end;
+                        C, z = N(a, C);
+                        while C do
+                            O[C] = nil; 
+                        end;
+                        return {}; 
+                    end;
+                    V.AddToggle = function(arg1, arg2, ...)
+                        local X = {
+                            X[1],
+                            X[2],
+                            X[6],
+                            X[7],
+                            X[5],
+                            X[4],
+                            63,
+                            X[13],
+                            X[3],
+                            X[8],
+                            X[16]
+                        };
+                        V = 86;
+                        r88 = arg2 or nil;
+                        A = r88;
+                        A.Name = r88.Name or "Toggle";
+                        A = r88;
+                        A.Default = r88.Default or false;
+                        P = r88;
+                        a = r88.Color;
+                        J = r88.Color;
+                        if r88.Color then
+                            r89 = {
+                                Value = r88.Default,
+                                Type = "Toggle",
+                                Save = r88.Save
+                            };
+                            J = r49(r47("Button"), {
+                                Size = UDim2.new(1, 0, 1, 0)
+                            });
+                            P = 96;
+                            r90 = r51(r49(r47("RoundFrame", r88.Color, 0, 6), {
+                                Size = UDim2.new(0, 24, 0, 24),
+                                Position = UDim2.new(1, -24, 0.5, 0),
+                                AnchorPoint = Vector2.new(0.5, 0.5),
+                                BackgroundTransparency = .2
+                            }), {
+                                r49(r47("Stroke"), {
+                                    Color = r88.Color,
+                                    Name = "Stroke",
+                                    Transparency = 0.5
+                                }),
+                                r49(r47("Image", "rbxassetid://3944680095"), {
+                                    Size = UDim2.new(0, 20, 0, 20),
+                                    AnchorPoint = Vector2.new(0.5, 0.5),
+                                    Position = UDim2.new(0.5, 0, 0.5, 0),
+                                    ImageColor3 = Color3.fromRGB(255, 255, 255),
+                                    Name = "Ico"
+                                })
+                            });
+                            r91 = r54(r51(r49(r47("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 8), {
+                                Size = UDim2.new(1, 0, 0, 38),
+                                Parent = r83,
+                                BackgroundTransparency = 0.25
+                            }), {
+                                r54(r49(r47("Label", r88.Name, 15), {
+                                    Size = UDim2.new(1, -12, 1, 0),
+                                    Position = UDim2.new(0, 12, 0, 0),
+                                    Font = Enum.Font.FredokaOne,
+                                    Name = "Content"
+                                }), "Text"),
+                                r54(r47("Stroke"), "Stroke"),
+                                r90,
+                                J
+                            }), "Second");
+                            C = r89;
+                            C.Set = function(arg1, arg2, ...)
+                                local X = {
+                                    95,
+                                    X[1],
+                                    X[2],
+                                    X[13],
+                                    96,
+                                    86,
+                                    X[3]
+                                };
+                                o = r28:Create(r90, TweenInfo.new(.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                                    BackgroundColor3 = r89.Value and r88.Color or r33.Themes.Default.Divider,
+                                    BackgroundTransparency = r89.Value and .1 or .4
+                                });
+                                o:Play();
+                                P = r28:Create(r90.Stroke, TweenInfo.new(.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                                    Color = r89.Value and r88.Color or r33.Themes.Default.Stroke
+                                });
+                                P:Play();
+                                TweenInfo.new(.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out);
+                                if r89.Value then
+                                    Y = UDim2.new(0, 20, 0, 20);
+                                end;
+                                if r89.Value then
+                                    P = r28:Create(r90.Ico, J(.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                                        ImageTransparency = r89.Value and 0 or 1,
+                                        Size = r28
+                                    });
+                                    P:Play();
+                                    r88.Callback(r89.Value);
+                                    return;
+                                else
+                                    M = UDim2.new(0, 8, 0, 8);
+                                end; 
+                            end;
+                            a = r89;
+                            r89:Set(r89.Value);
+                            r36("MouseEnter", function(...)
+                                local X = {
+                                    X[13],
+                                    97,
+                                    X[1],
+                                    X[2]
+                                };
+                                o = r28:Create(r91, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                                    BackgroundTransparency = .15
+                                });
+                                o:Play(); 
+                            end);
+                            r36("MouseLeave", function(...)
+                                local X = {
+                                    X[13],
+                                    97,
+                                    X[1],
+                                    X[2]
+                                };
+                                o = r28:Create(r91, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                                    BackgroundTransparency = 0.25
+                                });
+                                o:Play(); 
+                            end);
+                            r36("MouseButton1Up", function(...)
+                                local X = {
+                                    X[13],
+                                    97,
+                                    X[1],
+                                    X[2],
+                                    X[16],
+                                    95
+                                };
+                                o = r28:Create(r91, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                                    BackgroundTransparency = .15
+                                });
+                                o:Play();
+                                r62(game.GameId);
+                                r89:Set(not r89.Value); 
+                            end);
+                            r36("MouseButton1Down", function(...)
+                                local X = {
+                                    X[13],
+                                    97,
+                                    X[1],
+                                    X[2]
+                                };
+                                o = r28:Create(r91, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                                    BackgroundTransparency = .05
+                                });
+                                o:Play();
+                                V = Instance.new("Sound", game:GetService("SoundService"));
+                                V.SoundId = "rbxassetid://6895079853";
+                                V.Volume = 1;
+                                V:Play();
+                                o = game:GetService("Debris");
+                                o:AddItem(V, 3); 
+                            end);
+                            if r88.Flag then
+                                a = r33.Flags;
+                                a[r88.Flag] = r89;
+                            end;
+                            return r89;
+                        else
+                            Color3.fromRGB(135, 206, 250);
+                        end; 
+                    end;
+                    V.AddSlider = function(arg1, arg2, ...)
+                        local X = {
+                            X[1],
+                            X[2],
+                            X[5],
+                            X[6],
+                            X[7],
+                            X[4],
+                            63,
+                            X[12],
+                            X[17],
+                            X[16],
+                            X[18],
+                            X[13],
+                            X[3]
+                        };
+                        r = arg1;
+                        r92 = arg2 or nil;
+                        A = r92;
+                        A.Name = r92.Name or "Slider";
+                        A = r92;
+                        A.Min = r92.Min or 0;
+                        P = r92;
+                        a = r92.Color;
+                        if r92.Color then
+                            r93 = {
+                                Value = r92.Default,
+                                Type = "Slider",
+                                Save = r92.Save
+                            };
+                            r94 = false;
+                            P = 80;
+                            r95 = r51(r49(r47("RoundFrame", r92.Color, 0, 6), {
+                                Size = UDim2.new(0, 0, 1, 0),
+                                BackgroundTransparency = .4,
+                                ClipsDescendants = true
+                            }), {
+                                r54(r49(r47("Label", "value", 13), {
+                                    Size = UDim2.new(1, -12, 0, 14),
+                                    Position = UDim2.new(0, 12, 0, 6),
+                                    Font = Enum.Font.FredokaOne,
+                                    Name = "Value",
+                                    TextTransparency = 0
+                                }), "Text")
+                            });
+                            r96 = r51(r49(r47("RoundFrame", r92.Color, 0, 6), {
+                                Size = UDim2.new(1, -24, 0, 26),
+                                Position = UDim2.new(0, 12, 0, 30),
+                                BackgroundTransparency = .9
+                            }), {
+                                r49(r47("Stroke"), {
+                                    Color = r92.Color,
+                                    Transparency = .3
+                                }),
+                                r54(r49(r47("Label", "value", 13), {
+                                    Size = UDim2.new(1, -12, 0, 14),
+                                    Position = UDim2.new(0, 12, 0, 6),
+                                    Font = Enum.Font.FredokaOne,
+                                    Name = "Value",
+                                    TextTransparency = .8
+                                }), "Text"),
+                                r95
+                            });
+                            r54(r51(r49(r47("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 8), {
+                                Size = UDim2.new(1, 0, 0, 65),
+                                Parent = r83,
+                                BackgroundTransparency = 0.25
+                            }), {
+                                r54(r49(r47("Label", r92.Name, 15), {
+                                    Size = UDim2.new(1, -12, 0, 14),
+                                    Position = UDim2.new(0, 12, 0, 10),
+                                    Font = Enum.Font.FredokaOne,
+                                    Name = "Content"
+                                }), "Text"),
+                                r54(r47("Stroke"), "Stroke"),
+                                r96
+                            }), "Second");
+                            r96.InputBegan:Connect(function(arg1, ...)
+                                local X = {
+                                    X[1],
+                                    X[2],
+                                    79
+                                };
+                                o = arg1.UserInputType == Enum.UserInputType.MouseButton1 or arg1.UserInputType == Enum.UserInputType.Touch;
+                                if arg1.UserInputType == Enum.UserInputType.MouseButton1 or arg1.UserInputType == Enum.UserInputType.Touch then
+                                    P = Instance.new("Sound", game:GetService("SoundService"));
+                                    P:Play();
+                                    o = game:GetService("Debris");
+                                    o:AddItem(P, 3);
+                                end; 
+                            end);
+                            r96.InputEnded:Connect(function(arg1, ...)
+                                local X = {
+                                    X[1],
+                                    X[2],
+                                    79
+                                };
+                                if arg1.UserInputType == Enum.UserInputType.MouseButton1 or arg1.UserInputType == Enum.UserInputType.Touch then
+                                end; 
+                            end);
+                            r27.InputChanged:Connect(function(arg1, ...)
+                                local X = {
+                                    79,
+                                    X[1],
+                                    X[2],
+                                    X[17],
+                                    81,
+                                    78,
+                                    38,
+                                    X[16]
+                                };
+                                if r94 then
+                                    r93:Set(r92.Min + (r92.Max - r92.Min) * math.clamp((r32.X - r96.AbsolutePosition.X) / r96.AbsoluteSize.X, 0, 1));
+                                    r62(game.GameId);
+                                end; 
+                            end);
+                            N = r93;
+                            N.Set = function(arg1, arg2, ...)
+                                local X = {
+                                    X[1],
+                                    X[2],
+                                    X[18],
+                                    38,
+                                    X[13],
+                                    80,
+                                    81
+                                };
+                                r = arg1;
+                                r.Value = math.clamp(r52(arg2, r92.Increment), r92.Min, r92.Max);
+                                o = r28:Create(r95, TweenInfo.new(.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                                    Size = UDim2.fromScale((r.Value - r92.Min) / (r92.Max - r92.Min), 1)
+                                });
+                                o:Play();
+                                A = r96.Value;
+                                A.Text = tostring(r.Value) .. " " .. r92.ValueName;
+                                A = r95.Value;
+                                A.Text = tostring(r.Value) .. " " .. r92.ValueName;
+                                r92.Callback(r.Value); 
+                            end;
+                            a = r93;
+                            r93:Set(r93.Value);
+                            if r92.Flag then
+                                a = r33.Flags;
+                                a[r92.Flag] = r93;
+                            end;
+                            return r93;
+                        else
+                            J = Color3.fromRGB(135, 206, 250);
+                        end; 
+                    end;
+                    V.AddDropdown = function(arg1, arg2, ...)
+                        local X = {
+                            X[1],
+                            X[2],
+                            X[7],
+                            X[4],
+                            X[6],
+                            X[5],
+                            63,
+                            X[8],
+                            X[16],
+                            X[13],
+                            X[3]
+                        };
+                        V = 49;
+                        r = arg1;
+                        r97 = arg2 or nil;
+                        A = r97;
+                        A.Name = r97.Name or "Dropdown";
+                        A = r97;
+                        A.Options = r97.Options or nil;
+                        A = r97;
+                        A.Default = r97.Default or "";
+                        A = r97;
+                        A.Callback = r97.Callback or function(...)
+ 
+                        end;
+                        A = r97;
+                        A.Flag = r97.Flag or nil;
+                        r98 = {
+                            Value = r97.Default,
+                            Options = r97.Options,
+                            Buttons = {},
+                            Toggled = false,
+                            Type = "Dropdown",
+                            Save = r97.Save
+                        };
+                        r99 = 5;
+                        if not table.find(r98.Options, r98.Value) then
+                        end;
+                        P = 24;
+                        r100 = r47("List");
+                        O = 25;
+                        r101 = r54(r49(r51(r47("ScrollFrame", Color3.fromRGB(40, 40, 40), 4), {
+                            r100
+                        }), {
+                            Parent = r83,
+                            Position = UDim2.new(0, 0, 0, 38),
+                            Size = UDim2.new(1, 0, 1, -38),
+                            ClipsDescendants = true
+                        }), "Divider");
+                        C = r49(r47("Button"), {
+                            Size = UDim2.new(1, 0, 1, 0)
+                        });
+                        a = 26;
+                        r102 = r54(r51(r49(r47("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 8), {
+                            Size = UDim2.new(1, 0, 0, 38),
+                            Parent = r83,
+                            ClipsDescendants = true,
+                            BackgroundTransparency = 0.25
+                        }), {
+                            r101,
+                            r49(r51(r47("TFrame"), {
+                                r54(r49(r47("Label", r97.Name, 15), {
+                                    Size = UDim2.new(1, -12, 1, 0),
+                                    Position = UDim2.new(0, 12, 0, 0),
+                                    Font = Enum.Font.FredokaOne,
+                                    Name = "Content"
+                                }), "Text"),
+                                r54(r49(r47("Image", "rbxassetid://7072706796"), {
+                                    Size = UDim2.new(0, 20, 0, 20),
+                                    AnchorPoint = Vector2.new(0, 0.5),
+                                    Position = UDim2.new(1, -30, 0.5, 0),
+                                    ImageColor3 = Color3.fromRGB(240, 240, 240),
+                                    Name = "Ico"
+                                }), "TextDark"),
+                                r54(r49(r47("Label", "Selected", 13), {
+                                    Size = UDim2.new(1, -40, 1, 0),
+                                    Font = Enum.Font.FredokaOne,
+                                    Name = "Selected",
+                                    TextXAlignment = Enum.TextXAlignment.Right
+                                }), "TextDark"),
+                                r54(r49(r47("Frame"), {
+                                    Size = UDim2.new(1, 0, 0, 1),
+                                    Position = UDim2.new(0, 0, 1, -1),
+                                    Name = "Line",
+                                    Visible = false,
+                                    BackgroundTransparency = .4
+                                }), "Stroke"),
+                                C
+                            }), {
+                                Size = UDim2.new(1, 0, 0, 38),
+                                ClipsDescendants = true,
+                                Name = "F"
+                            }),
+                            r54(r47("Stroke"), "Stroke"),
+                            r47("Corner")
+                        }), "Second");
+                        r36(r100:GetPropertyChangedSignal("AbsoluteContentSize"), function(...)
+                            local X = {
+                                25,
+                                X[1],
+                                X[2],
+                                24
+                            };
+                            A = r101;
+                            A.CanvasSize = UDim2.new(0, 0, 0, r100.AbsoluteContentSize.Y); 
+                        end);
+                        local function r104(arg1, ...)
+                            local X = {
+                                X[4],
+                                X[6],
+                                X[5],
+                                X[7],
+                                X[1],
+                                X[2],
+                                O,
+                                X[8],
+                                33,
+                                X[16]
+                            };
+                            V = (33)[2];
+                            for P, O in pairs(arg1) do
+                                r103 = O;
+                                a = r54(r49(r51(r47("Button", Color3.fromRGB(40, 40, 40)), {
+                                    r47("Corner", 0, 6),
+                                    r54(r49(r47("Label", O, 13, .4), {
+                                        Position = UDim2.new(0, 8, 0, 0),
+                                        Size = UDim2.new(1, -8, 1, 0),
+                                        Name = "Title"
+                                    }), "Text")
+                                }), {
+                                    Parent = r101,
+                                    Size = UDim2.new(1, 0, 0, 28),
+                                    BackgroundTransparency = .8,
+                                    ClipsDescendants = true
+                                }), "Divider");
+                                r36(a.MouseButton1Click, function(...)
+                                    local X = {
+                                        X[1],
+                                        X[2],
+                                        33,
+                                        22,
+                                        X[16]
+                                    };
+                                    V = Instance.new("Sound", game:GetService("SoundService"));
+                                    V.SoundId = "rbxassetid://6895079853";
+                                    V.Volume = 1;
+                                    V:Play();
+                                    o = game:GetService("Debris");
+                                    o:AddItem(V, 3);
+                                    r98:Set(r103);
+                                    r62(game.GameId); 
+                                end);
+                                r36(a.MouseButton1Down, function(...)
+                                    local X = {
+                                        X[1],
+                                        X[2]
+                                    };
+                                    V = Instance.new("Sound", game:GetService("SoundService"));
+                                    V.SoundId = "rbxassetid://6895079853";
+                                    V.Volume = 1;
+                                    V:Play();
+                                    o = game:GetService("Debris");
+                                    o:AddItem(V, 3); 
+                                end);
+                                A = r98.Buttons;
+                                A[O] = a; 
+                            end; 
+                        end;
+                        z = r98;
+                        z.Refresh = function(arg1, arg2, arg3, ...)
+                            local X = {
+                                33,
+                                X[1],
+                                X[2],
+                                27
+                            };
+                            if arg3 then
+                                for J, C in pairs(o) do
+                                    C:Destroy(); 
+                                end;
+                                table.clear(r98.Options);
+                                table.clear(r98.Buttons);
+                            end;
+                            A = r98;
+                            A.Options = arg2;
+                            r104(r98.Options); 
+                        end;
+                        z = r98;
+                        z.Set = function(arg1, arg2, ...)
+                            local X = {
+                                X[1],
+                                X[2],
+                                33,
+                                26,
+                                X[13],
+                                49
+                            };
+                            if not table.find(r98.Options, arg2) then
+                                A = r98;
+                                A.Value = "...";
+                                A = r102.F.Selected;
+                                A.Text = r98.Value;
+                                for S, a in r98[1], pairs(r98[1]) do
+                                    C = r28:Create(a, TweenInfo.new(.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                                        BackgroundTransparency = .8
+                                    });
+                                    C:Play();
+                                    C = r28:Create(a.Title, TweenInfo.new(.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                                        TextTransparency = .4
+                                    });
+                                    C:Play(); 
+                                end;
+                                return;
+                            end;
+                            A = r98;
+                            A.Value = arg2;
+                            A = r102.F.Selected;
+                            A.Text = r98.Value;
+                            C = "Buttons";
+                            for J, a in pairs(r98.Buttons) do
+                                C = r28:Create(r98, TweenInfo.new(.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                                    BackgroundTransparency = .8
+                                });
+                                C:Play();
+                                C = r28:Create(r98.Title, TweenInfo.new(.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                                    TextTransparency = .4
+                                });
+                                C:Play(); 
+                            end;
+                            P = r28:Create(r98.Buttons[arg2], TweenInfo.new(.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                                BackgroundTransparency = .3
+                            });
+                            P:Play();
+                            P = r28:Create(r98.Buttons[arg2].Title, TweenInfo.new(.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                                TextTransparency = 0
+                            });
+                            P:Play();
+                            return r97.Callback(r98.Value); 
+                        end;
+                        r36("MouseButton1Click", function(...)
+                            local X = {
+                                33,
+                                X[1],
+                                X[2],
+                                26,
+                                X[13],
+                                32,
+                                24
+                            };
+                            A = r98;
+                            A.Toggled = not r98.Toggled;
+                            A = r102.F.Line;
+                            A.Visible = r98.Toggled;
+                            o = r28:Create(r102.F.Ico, TweenInfo.new(.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                                Rotation = r98.Toggled and 180 or 0
+                            });
+                            o:Play();
+                            if #r98.Options > r99 then
+                                if r98.Toggled then
+                                    r = r28:Create(r102, TweenInfo.new(.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                                        Size = r98.Toggled and UDim2.new(1, 0, 0, 38 + r99 * 28)
+                                    });
+                                    r:Play();
+                                    return;
+                                else
+                                    O = UDim2.new(1, 0, 0, 38);
+                                end;
+                            else
+                                if r98.Toggled then
+                                    C = UDim2.new(1, 0, 0, r100.AbsoluteContentSize.Y + 38);
+                                end;
+                                if r98.Toggled then
+                                    r = r28:Create(r102, TweenInfo.new(.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                                        Size = r98.Toggled
+                                    });
+                                    r:Play();
+                                else
+                                    O = UDim2.new(1, 0, 0, 38);
+                                end;
+                            end; 
+                        end);
+                        r36("MouseButton1Down", function(...)
+                            local X = {
+                                X[1],
+                                X[2]
+                            };
+                            V = Instance.new("Sound", game:GetService("SoundService"));
+                            V.SoundId = "rbxassetid://6895079853";
+                            V.Volume = 1;
+                            V:Play();
+                            o = game:GetService("Debris");
+                            o:AddItem(V, 3); 
+                        end);
+                        r98:Refresh(r98.Options, false);
+                        M = r98;
+                        r98:Set(r98.Value);
+                        if r97.Flag then
+                            M = r33.Flags;
+                            M[r97.Flag] = r98;
+                        end;
+                        return r98; 
+                    end;
+                    V.AddBind = function(arg1, arg2, ...)
+                        local X = {
+                            X[1],
+                            X[2],
+                            X[6],
+                            X[7],
+                            X[4],
+                            X[5],
+                            63,
+                            X[8],
+                            X[13],
+                            X[12],
+                            X[19],
+                            X[20],
+                            X[21],
+                            X[16],
+                            X[3]
+                        };
+                        V = 93;
+                        r105 = arg2;
+                        A = arg2;
+                        A.Name = arg2.Name or "Bind";
+                        A = arg2;
+                        A.Default = arg2.Default or Enum.KeyCode.Unknown;
+                        A = arg2;
+                        A.Hold = arg2.Hold or false;
+                        o = arg2;
+                        o.Callback = arg2.Callback or function(...)
+ 
+                        end;
+                        o = arg2;
+                        o.Flag = arg2.Flag or nil;
+                        o = arg2;
+                        o.Save = arg2.Save or false;
+                        r106 = {
+                            Value = arg2.Default,
+                            Binding = false,
+                            Type = "Bind",
+                            Save = arg2.Save
+                        };
+                        r107 = false;
+                        J = r49(r47("Button"), {
+                            Size = UDim2.new(1, 0, 1, 0)
+                        });
+                        r108 = r54(r51(r49(r47("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 6), {
+                            Size = UDim2.new(0, 24, 0, 24),
+                            Position = UDim2.new(1, -12, 0.5, 0),
+                            AnchorPoint = Vector2.new(1, 0.5),
+                            BackgroundTransparency = .2
+                        }), {
+                            r54(r47("Stroke"), "Stroke"),
+                            r54(r49(r47("Label", arg2.Name, 14), {
+                                Size = UDim2.new(1, 0, 1, 0),
+                                Font = Enum.Font.FredokaOne,
+                                TextXAlignment = Enum.TextXAlignment.Center,
+                                Name = "Value"
+                            }), "Text")
+                        }), "Main");
+                        r109 = r54(r51(r49(r47("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 8), {
+                            Size = UDim2.new(1, 0, 0, 38),
+                            Parent = r83,
+                            BackgroundTransparency = 0.25
+                        }), {
+                            r54(r49(r47("Label", arg2.Name, 15), {
+                                Size = UDim2.new(1, -12, 1, 0),
+                                Position = UDim2.new(0, 12, 0, 0),
+                                Font = Enum.Font.FredokaOne,
+                                Name = "Content"
+                            }), "Text"),
+                            r54(r47("Stroke"), "Stroke"),
+                            r108,
+                            J
+                        }), "Second");
+                        r36(r108.Value:GetPropertyChangedSignal("Text"), function(...)
+                            local X = {
+                                X[13],
+                                43,
+                                X[1],
+                                X[2]
+                            };
+                            o = r28:Create(r108, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                                Size = UDim2.new(0, r108.Value.TextBounds.X + 16, 0, 24)
+                            });
+                            o:Play(); 
+                        end);
+                        r36("InputEnded", function(arg1, ...)
+                            local X = {
+                                X[1],
+                                X[2],
+                                41,
+                                43
+                            };
+                            if arg1.UserInputType == Enum.UserInputType.MouseButton1 or arg1.UserInputType == Enum.UserInputType.Touch then
+                                if r106.Binding then
+                                    return;
+                                end;
+                                A = r106;
+                                A.Binding = true;
+                                A = r108.Value;
+                                A.Text = "";
+                            end; 
+                        end);
+                        r36(r27.InputBegan, function(arg1, ...)
+                            local X = {
+                                X[12],
+                                X[1],
+                                X[2],
+                                41,
+                                93,
+                                42,
+                                X[19],
+                                X[20],
+                                X[21],
+                                X[16]
+                            };
+                            r110 = arg1;
+                            if r27:GetFocusedTextBox() then
+                                return;
+                            end;
+                            if (arg1.KeyCode.Name == r106.Value or arg1.UserInputType.Name == r106.Value) and not r106.Binding then
+                                if r105.Hold then
+                                    r105.Callback(true);
+                                else
+                                    r105.Callback();
+                                end;
+                            else
+                                if r106.Binding then
+                                    V = 84;
+                                    pcall(function(...)
+                                        local X = {
+                                            X[19],
+                                            X[20],
+                                            83,
+                                            X[1],
+                                            X[2],
+                                            84
+                                        };
+                                        if not r65(r64, r110.KeyCode) then
+                                        end; 
+                                    end);
+                                    pcall(function(...)
+                                        local X = {
+                                            X[19],
+                                            X[21],
+                                            83,
+                                            X[1],
+                                            X[2],
+                                            84
+                                        };
+                                        V = r65(r63, r110.UserInputType);
+                                        if V then
+                                        end;
+                                        if V then
+                                        end; 
+                                    end);
+                                    o = r111 and r62(game.GameId);
+                                    r106:Set(r106.Value);
+                                    r62(game.GameId);
+                                end;
+                                return;
+                            end; 
+                        end);
+                        r36(r27.InputEnded, function(arg1, ...)
+                            local X = {
+                                X[1],
+                                X[2],
+                                41,
+                                93,
+                                42
+                            };
+                            if arg1.KeyCode.Name == r106.Value or arg1.UserInputType.Name == r106.Value then
+                                if r105.Hold and r107 then
+                                    r105.Callback(false);
+                                end;
+                            end; 
+                        end);
+                        r36("MouseEnter", function(...)
+                            local X = {
+                                X[13],
+                                44,
+                                X[1],
+                                X[2]
+                            };
+                            o = r28:Create(r109, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                                BackgroundTransparency = .15
+                            });
+                            o:Play(); 
+                        end);
+                        r36("MouseLeave", function(...)
+                            local X = {
+                                X[13],
+                                44,
+                                X[1],
+                                X[2]
+                            };
+                            o = r28:Create(r109, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                                BackgroundTransparency = 0.25
+                            });
+                            o:Play(); 
+                        end);
+                        r36("MouseButton1Up", function(...)
+                            local X = {
+                                X[13],
+                                44,
+                                X[1],
+                                X[2]
+                            };
+                            o = r28:Create(r109, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                                BackgroundTransparency = .15
+                            });
+                            o:Play(); 
+                        end);
+                        r36("MouseButton1Down", function(...)
+                            local X = {
+                                X[13],
+                                44,
+                                X[1],
+                                X[2]
+                            };
+                            o = r28:Create(r109, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                                BackgroundTransparency = .05
+                            });
+                            o:Play();
+                            V = Instance.new("Sound", game:GetService("SoundService"));
+                            V.SoundId = "rbxassetid://6895079853";
+                            V.Volume = 1;
+                            V:Play();
+                            o = game:GetService("Debris");
+                            o:AddItem(V, 3); 
+                        end);
+                        O = r106;
+                        O.Set = function(arg1, arg2, ...)
+                            local X = {
+                                41,
+                                X[1],
+                                X[2],
+                                43
+                            };
+                            A = r106;
+                            A.Binding = false;
+                            if arg2 then
+                                A[r4[J]] = arg2;
+                                A = r106;
+                                A.Value = r106.Value.Name or r106.Value;
+                                A = r108.Value;
+                                A.Text = r106.Value;
+                                return;
+                            end; 
+                        end;
+                        o = r106;
+                        r106:Set(arg2.Default);
+                        if arg2.Flag then
+                            o = r33.Flags;
+                            o[arg2.Flag] = r106;
+                        end;
+                        return r106; 
+                    end;
+                    V.AddTextbox = function(arg1, arg2, ...)
+                        local X = {
+                            X[1],
+                            X[2],
+                            X[6],
+                            X[7],
+                            X[4],
+                            X[14],
+                            X[5],
+                            63,
+                            X[8],
+                            X[13]
+                        };
+                        V = 45;
+                        r112 = arg2 or nil;
+                        A = r112;
+                        A.Name = r112.Name or "Textbox";
+                        A = r112;
+                        A.Default = r112.Default or "";
+                        A = r112;
+                        A.TextDisappear = r112.TextDisappear or false;
+                        S = r49(r47("Button"), {
+                            Size = UDim2.new(1, 0, 1, 0)
+                        });
+                        r113 = r54(r45("TextBox", {
+                            Size = UDim2.new(1, 0, 1, 0),
+                            BackgroundTransparency = 1,
+                            TextColor3 = Color3.fromRGB(255, 255, 255),
+                            PlaceholderColor3 = Color3.fromRGB(210, 210, 210),
+                            PlaceholderText = "Input",
+                            Font = Enum.Font.GothamSemibold,
+                            TextXAlignment = Enum.TextXAlignment.Center,
+                            TextSize = 14,
+                            ClearTextOnFocus = false
+                        }), "Text");
+                        r114 = r54(r51(r49(r47("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 6), {
+                            Size = UDim2.new(0, 24, 0, 24),
+                            Position = UDim2.new(1, -12, 0.5, 0),
+                            AnchorPoint = Vector2.new(1, 0.5),
+                            BackgroundTransparency = .2
+                        }), {
+                            r54(r47("Stroke"), "Stroke"),
+                            r113
+                        }), "Main");
+                        r115 = r54(r51(r49(r47("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 8), {
+                            Size = UDim2.new(1, 0, 0, 38),
+                            Parent = r83,
+                            BackgroundTransparency = 0.25
+                        }), {
+                            r54(r49(r47("Label", r112.Name, 15), {
+                                Size = UDim2.new(1, -12, 1, 0),
+                                Position = UDim2.new(0, 12, 0, 0),
+                                Font = Enum.Font.FredokaOne,
+                                Name = "Content"
+                            }), "Text"),
+                            r54(r47("Stroke"), "Stroke"),
+                            r114,
+                            S
+                        }), "Second");
+                        r36(r113:GetPropertyChangedSignal("Text"), function(...)
+                            local X = {
+                                X[13],
+                                29,
+                                X[1],
+                                X[2],
+                                28
+                            };
+                            o = r28:Create(r114, TweenInfo.new(.45, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                                Size = UDim2.new(0, r113.TextBounds.X + 16, 0, 24)
+                            });
+                            o:Play(); 
+                        end);
+                        r36(r113.FocusLost, function(...)
+                            local X = {
+                                45,
+                                X[1],
+                                X[2],
+                                28
+                            };
+                            r112.Callback(r113.Text);
+                            if r112.TextDisappear then
+                                A = r113;
+                                A.Text = "";
+                            end; 
+                        end);
+                        a = r113;
+                        a.Text = r112.Default;
+                        r36("MouseEnter", function(...)
+                            local X = {
+                                X[13],
+                                30,
+                                X[1],
+                                X[2]
+                            };
+                            o = r28:Create(r115, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                                BackgroundTransparency = .15
+                            });
+                            o:Play(); 
+                        end);
+                        r36("MouseLeave", function(...)
+                            local X = {
+                                X[13],
+                                30,
+                                X[1],
+                                X[2]
+                            };
+                            o = r28:Create(r115, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                                BackgroundTransparency = 0.25
+                            });
+                            o:Play(); 
+                        end);
+                        r36("MouseButton1Up", function(...)
+                            local X = {
+                                X[13],
+                                30,
+                                X[1],
+                                X[2],
+                                28
+                            };
+                            o = r28:Create(r115, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                                BackgroundTransparency = .15
+                            });
+                            o:Play();
+                            r113:CaptureFocus(); 
+                        end);
+                        r36("MouseButton1Down", function(...)
+                            local X = {
+                                X[13],
+                                30,
+                                X[1],
+                                X[2]
+                            };
+                            o = r28:Create(r115, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+                                BackgroundTransparency = .05
+                            });
+                            o:Play();
+                            V = Instance.new("Sound", game:GetService("SoundService"));
+                            V.SoundId = "rbxassetid://6895079853";
+                            V.Volume = 1;
+                            V:Play();
+                            o = game:GetService("Debris");
+                            o:AddItem(V, 3); 
+                        end); 
+                    end;
+                    V.AddColorpicker = function(arg1, arg2, ...)
+                        local X = {
+                            X[1],
+                            X[2],
+                            X[14],
+                            X[6],
+                            X[7],
+                            X[4],
+                            X[5],
+                            63,
+                            X[8],
+                            X[13],
+                            X[16],
+                            X[22],
+                            X[17],
+                            X[3]
+                        };
+                        V = 46;
+                        r = arg1;
+                        r116 = arg2 or nil;
+                        A = r116;
+                        A.Name = r116.Name or "Colorpicker";
+                        D = 12995411072931;
+                        P = "Default";
+                        if r116.Default then
+                            A.Default = r116.Default;
+                            A = r116;
+                            A.Callback = r116.Callback or function(...)
+ 
+                            end;
+                            A = r116;
+                            A.Flag = r116.Flag or nil;
+                            r117 = 1;
+                            P = 12;
+                            r118 = 1;
+                            r119 = 1;
+                            r120 = {
+                                Value = r116.Default,
+                                Toggled = false,
+                                Type = "Colorpicker",
+                                Save = r116.Save
+                            };
+                            r121 = r45("ImageLabel", {
+                                Size = UDim2.new(0, 18, 0, 18),
+                                Position = UDim2.new(select(3, Color3.toHSV(r120.Value))),
+                                ScaleType = Enum.ScaleType.Fit,
+                                AnchorPoint = Vector2.new(0.5, 0.5),
+                                BackgroundTransparency = 1,
+                                Image = "http://www.roblox.com/asset/?id=4805639000"
+                            });
+                            r122 = r45("ImageLabel", {
+                                Size = UDim2.new(0, 18, 0, 18),
+                                Position = UDim2.new(0.5, 0, 1 - select(1, Color3.toHSV(r120.Value))),
+                                ScaleType = Enum.ScaleType.Fit,
+                                AnchorPoint = Vector2.new(0.5, 0.5),
+                                BackgroundTransparency = 1,
+                                Image = "http://www.roblox.com/asset/?id=4805639000"
+                            });
+                            r123 = r45("ImageLabel", {
+                                Size = UDim2.new(1, -25, 1, 0),
+                                Visible = false,
+                                Image = "rbxassetid://4155801252"
+                            }, {
+                                r45("UICorner", {
+                                    CornerRadius = UDim.new(0, 5)
+                                }),
+                                r121
+                            });
+                            r124 = r45("Frame", {
+                                Size = UDim2.new(0, 20, 1, 0),
+                                Position = UDim2.new(1, -20, 0, 0),
+                                Visible = false
+                            }, {
+                                r45("UIGradient", {
+                                    Rotation = 270,
+                                    Color = ColorSequence.new({
+                                        ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 0, 4)),
+                                        ColorSequenceKeypoint.new(.2, Color3.fromRGB(234, 255, 0)),
+                                        ColorSequenceKeypoint.new(.4, Color3.fromRGB(21, 255, 0)),
+                                        ColorSequenceKeypoint.new(.6, Color3.fromRGB(0, 255, 255)),
+                                        ColorSequenceKeypoint.new(.8, Color3.fromRGB(0, 17, 255)),
+                                        ColorSequenceKeypoint.new(.9, Color3.fromRGB(255, 0, 251)),
+                                        ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 0, 4))
+                                    })
+                                }),
+                                r45("UICorner", {
+                                    CornerRadius = UDim.new(0, 5)
+                                }),
+                                r122
+                            });
+                            D = r49(r47("Button"), {
+                                Size = UDim2.new(1, 0, 1, 0)
+                            });
+                            r125 = r54(r51(r49(r47("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 6), {
+                                Size = UDim2.new(0, 24, 0, 24),
+                                Position = UDim2.new(1, -12, 0.5, 0),
+                                AnchorPoint = Vector2.new(1, 0.5),
+                                BackgroundTransparency = .2
+                            }), {
+                                r54(r47("Stroke"), "Stroke")
+                            }), "Main");
+                            r126 = r54(r51(r49(r47("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 8), {
+                                Size = UDim2.new(1, 0, 0, 38),
+                                Parent = r83,
+                                BackgroundTransparency = 0.25
+                            }), {
+                                r49(r51(r47("TFrame"), {
+                                    r54(r49(r47("Label", r116.Name, 15), {
+                                        Size = UDim2.new(1, -12, 1, 0),
+                                        Position = UDim2.new(0, 12, 0, 0),
+                                        Font = Enum.Font.FredokaOne,
+                                        Name = "Content"
+                                    }), "Text"),
+                                    r125,
+                                    D,
+                                    r54(r49(r47("Frame"), {
+                                        Size = UDim2.new(1, 0, 0, 1),
+                                        Position = UDim2.new(0, 0, 1, -1),
+                                        Name = "Line",
+                                        Visible = false,
+                                        BackgroundTransparency = .4
+                                    }), "Stroke")
+                                }), {
+                                    Size = UDim2.new(1, 0, 0, 38),
+                                    ClipsDescendants = true,
+                                    Name = "F"
+                                }),
+                                r45("Frame", {
+                                    Position = UDim2.new(0, 0, 0, 32),
+                                    Size = UDim2.new(1, 0, 1, -32),
+                                    BackgroundTransparency = 1,
+                                    ClipsDescendants = true
+                                }, {
+                                    r124,
+                                    r123,
+                                    r45("UIPadding", {
+                                        PaddingLeft = UDim.new(0, 35),
+                                        PaddingRight = UDim.new(0, 35),
+                                        PaddingBottom = UDim.new(0, 10),
+                                        PaddingTop = UDim.new(0, 17)
+                                    })
+                                }),
+                                r54(r47("Stroke"), "Stroke")
+                            }), "Second");
+                            r36(D.MouseButton1Click, function(...)
+                                local X = {
+                                    14,
+                                    X[1],
+                                    X[2],
+                                    X[13],
+                                    20,
+                                    17,
+                                    18
+                                };
+                                A = r120;
+                                A.Toggled = not r120.Toggled;
+                                TweenInfo.new(.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out);
+                                J = r120.Toggled and UDim2.new(1, 0, 0, 148);
+                                A = r28;
+                                if r120.Toggled then
+                                    o = r28:Create(r126, V(.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                                        Size = r120.Toggled and UDim2.new(1, 0, 0, 148)
+                                    });
+                                    o:Play();
+                                    A = r123;
+                                    A.Visible = r120.Toggled;
+                                    A = r124;
+                                    A.Visible = r120.Toggled;
+                                    A = r126.F.Line;
+                                    A.Visible = r120.Toggled;
+                                    return;
+                                else
+                                    J = UDim2.new(1, 0, 0, 38);
+                                end; 
+                            end);
+                            r36(D.MouseButton1Down, function(...)
+                                local X = {
+                                    X[1],
+                                    X[2]
+                                };
+                                V = Instance.new("Sound", game:GetService("SoundService"));
+                                V.SoundId = "rbxassetid://6895079853";
+                                V.Volume = 1;
+                                V:Play();
+                                o = game:GetService("Debris");
+                                o:AddItem(V, 3); 
+                            end);
+                            local function r127(...)
+                                local X = {
+                                    19,
+                                    X[1],
+                                    X[2],
+                                    11,
+                                    12,
+                                    13,
+                                    17,
+                                    14,
+                                    46,
+                                    X[16]
+                                };
+                                A = r125;
+                                A.BackgroundColor3 = Color3.fromHSV(r117, r118, r119);
+                                A = r123;
+                                A.BackgroundColor3 = Color3.fromHSV(r117, 1, 1);
+                                r120:Set(r125.BackgroundColor3);
+                                r116.Callback(r125.BackgroundColor3);
+                                r62(game.GameId); 
+                            end;
+                            r117 = 1 - math.clamp(r122.AbsolutePosition.Y - r124.AbsolutePosition.Y, 0, r124.AbsoluteSize.Y) / r124.AbsoluteSize.Y;
+                            r118 = math.clamp(r121.AbsolutePosition.X - r123.AbsolutePosition.X, 0, r123.AbsoluteSize.X) / r123.AbsoluteSize.X;
+                            r119 = 1 - math.clamp(r121.AbsolutePosition.Y - r123.AbsolutePosition.Y, 0, r123.AbsoluteSize.Y) / r123.AbsoluteSize.Y;
+                            r36(r123.InputBegan, function(arg1, ...)
+                                local X = {
+                                    X[1],
+                                    X[2],
+                                    X[8],
+                                    X[22],
+                                    X[17],
+                                    17,
+                                    15,
+                                    12,
+                                    13,
+                                    21
+                                };
+                                r = arg1;
+                                if arg1.UserInputType == Enum.UserInputType.MouseButton1 or arg1.UserInputType == Enum.UserInputType.Touch then
+                                    P = Instance.new("Sound", game:GetService("SoundService"));
+                                    P:Play();
+                                    o = game:GetService("Debris");
+                                    o:AddItem(P, 3);
+                                    A = ColorInput;
+                                    if ColorInput then
+                                        ColorInput:Disconnect();
+                                    end;
+                                    ColorInput = r36(r29.RenderStepped, function(...)
+                                        local X = {
+                                            X[1],
+                                            X[2],
+                                            X[17],
+                                            17,
+                                            15,
+                                            12,
+                                            13,
+                                            21
+                                        };
+                                        r = math.clamp(r32.X - r123.AbsolutePosition.X, 0, r123.AbsoluteSize.X) / r123.AbsoluteSize.X;
+                                        V = math.clamp(r32.Y - r123.AbsolutePosition.Y, 0, r123.AbsoluteSize.Y) / r123.AbsoluteSize.Y;
+                                        A = r121;
+                                        A.Position = UDim2.new(r, 0, V, 0);
+                                        r127(); 
+                                    end);
+                                end; 
+                            end);
+                            r36(r123.InputEnded, function(arg1, ...)
+                                local X = {
+                                    X[1],
+                                    X[2]
+                                };
+                                if arg1.UserInputType == Enum.UserInputType.MouseButton1 or arg1.UserInputType == Enum.UserInputType.Touch then
+                                    if ColorInput then
+                                        ColorInput:Disconnect();
+                                    end;
+                                end; 
+                            end);
+                            r36(r124.InputBegan, function(arg1, ...)
+                                local X = {
+                                    X[1],
+                                    X[2],
+                                    X[8],
+                                    X[22],
+                                    X[17],
+                                    18,
+                                    16,
+                                    11,
+                                    21
+                                };
+                                P = arg1.UserInputType;
+                                if arg1.UserInputType == Enum.UserInputType.MouseButton1 or arg1.UserInputType == Enum.UserInputType.Touch then
+                                    P = Instance.new("Sound", game:GetService("SoundService"));
+                                    P:Play();
+                                    o = game:GetService("Debris");
+                                    o:AddItem(P, 3);
+                                    A = HueInput;
+                                    if HueInput then
+                                        HueInput:Disconnect();
+                                    end;
+                                    HueInput = r36(r29.RenderStepped, function(...)
+                                        local X = {
+                                            X[1],
+                                            X[2],
+                                            X[17],
+                                            18,
+                                            16,
+                                            11,
+                                            21
+                                        };
+                                        r = math.clamp(r32.Y - r124.AbsolutePosition.Y, 0, r124.AbsoluteSize.Y) / r124.AbsoluteSize.Y;
+                                        A = r122;
+                                        A.Position = UDim2.new(0.5, 0, r, 0);
+                                        r127(); 
+                                    end);
+                                end; 
+                            end);
+                            r36(r124.InputEnded, function(arg1, ...)
+                                local X = {
+                                    X[1],
+                                    X[2]
+                                };
+                                if arg1.UserInputType == Enum.UserInputType.MouseButton1 or arg1.UserInputType == Enum.UserInputType.Touch then
+                                    if HueInput then
+                                        HueInput:Disconnect();
+                                    end;
+                                end; 
+                            end);
+                            v = r120;
+                            v.Set = function(arg1, arg2, ...)
+                                local X = {
+                                    14,
+                                    X[1],
+                                    X[2],
+                                    19,
+                                    46
+                                };
+                                A = r125;
+                                A.BackgroundColor3 = r120.Value;
+                                r116.Callback(r120.Value); 
+                            end;
+                            F = r120;
+                            r120:Set(r120.Value);
+                            if r116.Flag then
+                                F = r33.Flags;
+                                F[r116.Flag] = r120;
+                            end;
+                            return r120;
+                        else
+                            S = Color3.fromRGB(255, 255, 255);
+                        end; 
+                    end;
+                    return V; 
+                end;
+                a = {};
+                a.AddSection = function(arg1, arg2, ...)
+                    local X = {
+                        X[1],
+                        X[2],
+                        X[5],
+                        X[6],
+                        X[7],
+                        71,
+                        X[4],
+                        X[8],
+                        1
+                    };
+                    V = arg2;
+                    V.Name = arg2.Name or "Section";
+                    P = Instance.new("Frame");
+                    S = Instance.new("UICorner");
+                    D = {
+                        r47("List", 0, 6)
+                    };
+                    r129 = r51(r49(r47("TFrame"), {
+                        Size = UDim2.new(1, 0, 0, 26),
+                        Parent = r82
+                    }), {
+                        r51(r49(r47("TFrame"), {
+                            Size = UDim2.new(1, 0, 0, 16),
+                            Position = UDim2.new(0, 0, 0, 3)
+                        }), {
+                            P,
+                            r54(r49(r47("Label", V.Name, 14), {
+                                Size = UDim2.new(1, -12, 1, 0),
+                                Position = UDim2.new(0, 10, 0, 0),
+                                Font = Enum.Font.FredokaOne
+                            }), "TextDark")
+                        }),
+                        r51(r49(r47("TFrame"), {
+                            AnchorPoint = Vector2.new(0, 0),
+                            Size = UDim2.new(1, 0, 1, -24),
+                            Position = UDim2.new(0, 0, 0, 23),
+                            Name = "Holder"
+                        }), r49)
+                    });
+                    O = r129.Holder.UIListLayout;
+                    r36(r129.Holder.UIListLayout:GetPropertyChangedSignal("AbsoluteContentSize"), function(...)
+                        local X = {
+                            102,
+                            X[1],
+                            X[2]
+                        };
+                        A = r129;
+                        A.Size = UDim2.new(1, 0, 0, r129.Holder.UIListLayout.AbsoluteContentSize.Y + 31);
+                        A = r129.Holder;
+                        A.Size = UDim2.new(1, 0, 0, r129.Holder.UIListLayout.AbsoluteContentSize.Y); 
+                    end);
+                    for C, z in next, r128(next), next, U(D) do
+                        O[C] = nil; 
+                    end;
+                    return {}; 
+                end;
+                M = r47("List", 0, 6);
+                for z, Y in next, r128(r82) do
+                    a[z] = r82; 
+                end;
+                if V.PremiumOnly then
+                    N, Y = next(M, N);
+                    while N do
+                        a[N] = function(...)
+ 
+                        end; 
+                    end;
+                    N = r82:FindFirstChild("UIListLayout");
+                    N:Destroy();
+                    N = r82:FindFirstChild("UIPadding");
+                    N:Destroy();
+                    r51(r49(r47("TFrame"), {
+                        Size = UDim2.new(1, 0, 1, 0),
+                        Parent = ItemParent
+                    }), {
+                        r54(r49(r47("Image", "rbxassetid://3610239960"), {
+                            Size = UDim2.new(0, 18, 0, 18),
+                            Position = UDim2.new(0, 15, 0, 15),
+                            ImageTransparency = .4
+                        }), "Text"),
+                        r54(r49(r47("Label", "Unauthorised Access", 14), {
+                            Size = UDim2.new(1, -38, 0, 14),
+                            Position = UDim2.new(0, 38, 0, 18),
+                            TextTransparency = .4
+                        }), "Text"),
+                        r54(r49(r47("Image", "rbxassetid://4483345875"), {
+                            Size = UDim2.new(0, 56, 0, 56),
+                            Position = UDim2.new(0, 84, 0, 110)
+                        }), "Text"),
+                        r54(r49(r47("Label", "Premium Features", 14), {
+                            Size = UDim2.new(1, -150, 0, 14),
+                            Position = UDim2.new(0, 150, 0, 112),
+                            Font = Enum.Font.FredokaOne
+                        }), "Text"),
+                        r54(r49(r47("Label", "This part of the script is locked to Sirius Premium users. Purchase Premium in the Discord server (discord.gg/sirius)", 12), {
+                            Size = UDim2.new(1, -200, 0, 14),
+                            Position = UDim2.new(0, 150, 0, 138),
+                            TextWrapped = true,
+                            TextTransparency = .4
+                        }), "Text")
+                    });
+                end;
+                return a;
+            end; 
+        end;
+        return i;
+    else
+        Xj = UDim2.new(0, 50, 0, 12);
+    end; 
+end;
+local r6 = {
+    Cor_Hub = Color3.fromRGB(15, 15, 15),
+    Cor_Options = Color3.fromRGB(15, 15, 15),
+    Cor_Stroke = Color3.fromRGB(60, 60, 60),
+    Cor_Text = Color3.fromRGB(240, 240, 240),
+    Cor_DarkText = Color3.fromRGB(140, 140, 140),
+    Corner_Radius = UDim.new(0, 4),
+    Text_Font = r33.Font
+};
+local r130 = game:GetService("TweenService");
+local function r5(arg1, arg2, arg3, ...)
+    r131 = Instance.new(arg1, arg2);
+    if arg3 then
+        table.foreach(arg3, function(arg1, arg2, ...)
+            A = r131;
+            A[arg1] = arg2; 
+        end);
+    end;
+    return r131; 
+end;
+local function r7(arg1, arg2, ...)
+    r132 = arg1;
+    if arg1 then
+    end;
+    if arg1 then
+        table.foreach(arg2, function(arg1, arg2, ...)
+            A = r132;
+            A[arg1] = arg2; 
+        end);
+    end;
+    return arg1; 
+end;
+local function r133(arg1, arg2, ...)
+    v2 = r5("UICorner", arg1);
+    if arg2 then
+        r7(v2, arg2);
+    end;
+    return v2; 
+end;
+local function r134(arg1, arg2, arg3, arg4, arg5, ...)
+    v5 = r130:Create(arg1, TweenInfo.new(arg4, Enum.EasingStyle.Linear), {
+        [arg2] = arg3
+    });
+    A = v5:Play();
+    if arg5 then
+        v5.Completed:Wait();
+    end; 
+end;
+local r135 = r5("Frame", r5("ScreenGui", r35), {
+    Size = UDim2.new(0, 300, 1, 0),
+    Position = UDim2.new(1, 0, 0, 0),
+    AnchorPoint = Vector2.new(1, 0),
+    BackgroundTransparency = 1
+});
+r5("UIPadding", r135, {
+    PaddingLeft = UDim.new(0, 25),
+    PaddingTop = UDim.new(0, 25),
+    PaddingBottom = UDim.new(0, 50)
+});
+r5("UIListLayout", r135, {
+    Padding = UDim.new(0, 15),
+    VerticalAlignment = "Bottom"
+});
+Tj.MakeNotifi = function(arg1, arg2, ...)
+    V = arg2;
+    r136 = arg2.Time or 5;
+    r137 = r5("Frame", r135, {
+        Size = UDim2.new(2, 0, 0, 0),
+        BackgroundTransparency = 1,
+        AutomaticSize = "Y",
+        Name = "Title"
+    });
+    r138 = r5("Frame", r137, {
+        Size = UDim2.new(0, r135.Size.X.Offset - 50, 0, 0),
+        BackgroundColor3 = r6.Cor_Hub,
+        Position = UDim2.new(0, r135.Size.X.Offset, 0, 0),
+        AutomaticSize = "Y",
+        BackgroundTransparency = .2
+    });
+    r133(r138);
+    r5("TextLabel", r138, {
+        Size = UDim2.new(1, 0, 0, 25),
+        Font = r6.Text_Font,
+        BackgroundTransparency = 1,
+        Text = arg2.Title or "Title!",
+        TextSize = 20,
+        Position = UDim2.new(0, 20, 0, 5),
+        TextXAlignment = "Left",
+        TextColor3 = r6.Cor_Text
+    });
+    N = r5("TextButton", r138, {
+        Text = "X",
+        Font = r6.Text_Font,
+        TextSize = 20,
+        BackgroundTransparency = 1,
+        TextColor3 = Color3.fromRGB(200, 200, 200),
+        Position = UDim2.new(1, -5, 0, 5),
+        AnchorPoint = Vector2.new(1, 0),
+        Size = UDim2.new(0, 25, 0, 25)
+    });
+    r133(N, {
+        CornerRadius = UDim.new(0, 6)
+    });
+    r36(N.MouseButton1Down, function(...)
+        local X = {
+            X[1],
+            X[2]
+        };
+        V = Instance.new("Sound", game:GetService("SoundService"));
+        V.SoundId = "rbxassetid://6895079853";
+        V.Volume = 1;
+        V:Play();
+        o = game:GetService("Debris");
+        o:AddItem(V, 3); 
+    end);
+    r5("TextLabel", r138, {
+        Size = UDim2.new(1, -30, 0, 0),
+        Position = UDim2.new(0, 20, 0, N.Size.Y.Offset + 10),
+        TextSize = 15,
+        TextColor3 = r6.Cor_DarkText,
+        TextXAlignment = "Left",
+        TextYAlignment = "Top",
+        AutomaticSize = "Y",
+        Text = arg2.Text or "Notification content... what will it say??",
+        Font = r6.Text_Font,
+        BackgroundTransparency = 1,
+        AutomaticSize = Enum.AutomaticSize.Y,
+        TextWrapped = true
+    });
+    r139 = r5("Frame", r138, {
+        Size = UDim2.new(1, 0, 0, 2),
+        BackgroundColor3 = r6.Cor_Stroke,
+        Position = UDim2.new(0, 2, 0, 30),
+        BorderSizePixel = 0,
+        BackgroundTransparency = .3
+    });
+    r133(r139, {
+        CornerRadius = UDim.new(0, 4)
+    });
+    r5("Frame", r138, {
+        Size = UDim2.new(0, 0, 0, 5),
+        Position = UDim2.new(0, 0, 1, 5),
+        BackgroundTransparency = 1
+    });
+    task.spawn(function(...)
+        local X = {
+            X[8],
+            101,
+            X[1],
+            X[2],
+            98
+        };
+        r134(r139, "Size", UDim2.new(0, 0, 0, 2), r136, true); 
+    end);
+    N.MouseButton1Click:Connect(function(...)
+        local X = {
+            X[8],
+            100,
+            X[1],
+            X[2],
+            X[4],
+            99
+        };
+        r134(r138, "Position", UDim2.new(0, -20, 0, 0), .1, true);
+        r134(r138, "Position", UDim2.new(0, r135.Size.X.Offset, 0, 0), 0.5, true);
+        r137:Destroy(); 
+    end);
+    task.spawn(function(...)
+        local X = {
+            X[8],
+            100,
+            X[1],
+            X[2],
+            98,
+            X[4],
+            99
+        };
+        r134(r138, "Position", UDim2.new(0, -20, 0, 0), 0.5, true);
+        r134(r138, "Position", UDim2.new(), .1, true);
+        task.wait(r136);
+        if r138 then
+            r134(r138, "Position", UDim2.new(0, -20, 0, 0), .1, true);
+            r134(r138, "Position", UDim2.new(0, r135.Size.X.Offset, 0, 0), 0.5, true);
+            r137:Destroy();
+        end; 
+    end); 
+end;
+Tj.Destroy = function(arg1, ...)
+    r35:Destroy(); 
+end;
+return r33;
